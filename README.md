@@ -1,5 +1,3 @@
 # webapp
 
-Here is my first line in readme.
-
-and again.
+Here is a brand new message in the readme file. It's now on bitbucket.
