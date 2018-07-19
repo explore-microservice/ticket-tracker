@@ -1,6 +1,5 @@
 package com.issuetracker.webapp.controller;
 
-import com.issuetracker.webapp.configuration.AppConfig;
 import com.issuetracker.webapp.service.MessageProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
