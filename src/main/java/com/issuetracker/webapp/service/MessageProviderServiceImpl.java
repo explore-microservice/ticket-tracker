@@ -11,6 +11,4 @@ public class MessageProviderServiceImpl implements MessageProviderService {
     public String getMessage(String name) {
         return String.format(template, name);
     }
-
-
 }
