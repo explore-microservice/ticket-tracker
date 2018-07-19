@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class GreetingController{
 
     @Autowired
-    private AppConfig appConfig;
+    private MessageProviderService messageProvider;
 
     @RequestMapping("/greeting")
-    public MessageProviderService greeting(@RequestParam(value = "name", defaultValue = "World") String name){
-        return appConfig.messageProvider();
+    public String greeting(@RequestParam(value = "name", defaultValue = "World") String name){
+        return messageProvider.getMessage(name);
     }
 }
