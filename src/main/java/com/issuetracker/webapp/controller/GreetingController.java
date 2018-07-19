@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreetingController{
 
+    private final MessageProviderService messageProvider;
+
     @Autowired
-    private MessageProviderService messageProvider;
+    public GreetingController(MessageProviderService messageProvider) {
+        this.messageProvider = messageProvider;
+    }
 
     @RequestMapping("/greeting")
     public String greeting(@RequestParam(value = "name", defaultValue = "World") String name){
