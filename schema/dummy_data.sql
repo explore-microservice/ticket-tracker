@@ -2,7 +2,7 @@ INSERT INTO it_user(id, firstname, lastname, username, password, lastloggedin) V
 INSERT INTO it_user(id, firstname, lastname, username, password, lastloggedin) VALUES (2, 'Diana', 'Book', 'diana', 'password', null);
 INSERT INTO it_user(id, firstname, lastname, username, password, lastloggedin) VALUES (3, 'Man', 'Fountain', 'man', 'password', null);
 INSERT INTO it_project(id, name, description, creationdate, startdate, enddate) VALUES (1, 'Eternitiy', 'Here is a desciption of the project', '2018-07-23', null, null);
-INSERT INTO it_project(id, name, description, creationdate, startdate, enddate) VALUES (2, 'Modello', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2018-07-23', null, null);
+INSERT INTO it_project(id, name, description, creationdate, startdate, enddate) VALUES (2, 'Modello', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2018-07-23', null, null);
 INSERT INTO it_userworksonproject(userid, projectid) VALUES (1, 1);
 INSERT INTO it_userworksonproject(userid, projectid) VALUES (1, 2);
 INSERT INTO it_userworksonproject(userid, projectid) VALUES (2, 2);
