@@ -1,0 +1,16 @@
+INSERT INTO it_user(id, firstname, lastname, username, password, lastloggedin) VALUES (1, 'Kenneth', 'Miller', 'keneth', 'password', null);
+INSERT INTO it_user(id, firstname, lastname, username, password, lastloggedin) VALUES (2, 'Diana', 'Book', 'diana', 'password', null);
+INSERT INTO it_user(id, firstname, lastname, username, password, lastloggedin) VALUES (3, 'Man', 'Fountain', 'man', 'password', null);
+INSERT INTO it_project(id, name, description, creationdate, startdate, enddate) VALUES (1, 'Eternitiy', 'Here is a desciption of the project', '2018-07-23', null, null);
+INSERT INTO it_project(id, name, description, creationdate, startdate, enddate) VALUES (2, 'Modello', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', '2018-07-23', null, null);
+INSERT INTO it_userworksonproject(userid, projectid) VALUES (1, 1);
+INSERT INTO it_userworksonproject(userid, projectid) VALUES (1, 2);
+INSERT INTO it_userworksonproject(userid, projectid) VALUES (2, 2);
+INSERT INTO it_userworksonproject(userid, projectid) VALUES (3, 1);
+INSERT INTO it_sprint(id, name, description, creationdate, startdate, enddate, projectid) VALUES (1, 'Backlog', 'Just a sample backlog for a project Eternitiy', '2018-07-23', null, null, 1);
+INSERT INTO it_sprint(id, name, description, creationdate, startdate, enddate, projectid) VALUES (2, 'Backlog', 'Just a sample backlog for a project Modello', '2018-07-23', null, null, 2);
+INSERT INTO it_sprint(id, name, description, creationdate, startdate, enddate, projectid) VALUES (3, 'Eternity Sprint 1', 'May god be with us', '2018-07-23', null, null, 1);
+INSERT INTO it_sprint(id, name, description, creationdate, startdate, enddate, projectid) VALUES (4, 'Modello Sprint 1', 'Make our PM happy again ', '2018-07-23', null, null, 2);
+INSERT INTO it_issue(id, name, description, creationdate, sprintid, creatoruserid, assigneeuserid) VALUES (1, 'ETE-1', 'This is our first issue', '2018-07-23', 1, 1, 3);
+INSERT INTO it_issue(id, name, description, creationdate, sprintid, creatoruserid, assigneeuserid) VALUES (2, 'MOD-1', 'We have a bug on landing page', '2018-07-23', 2, 1, 2);
+INSERT INTO it_comment(id, content, creationdate, userid, issueid) VALUES (1, 'This is a new comment on the first created issue', '2018-07-23', 1, 1);
