@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class UserRowMapper implements RowMapper<User> {
@@ -18,9 +17,7 @@ public class UserRowMapper implements RowMapper<User> {
         user.setLastname(resultSet.getString("lastname"));
         user.setUsername(resultSet.getString("username"));
         user.setPassword(resultSet.getString("password"));
-        //TODO Need to find a better way for this.
-        user.setLastLoggedIn(
-                Optional.ofNullable(resultSet.getTimestamp("lastloggedin")).orElse(Timestamp.valueOf(LocalDateTime.MIN)).toLocalDateTime());
+        user.setLastLoggedIn(Optional.ofNullable(resultSet.getTimestamp("lastloggedin")).map(Timestamp::toLocalDateTime).orElse(null));
         return user;
     }
 }
