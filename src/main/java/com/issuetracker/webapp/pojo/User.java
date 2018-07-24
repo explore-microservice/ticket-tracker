@@ -1,34 +1,26 @@
 package com.issuetracker.webapp.pojo;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private @NotNull Long id;
-    private @NotNull String firstname;
-    private @NotNull String lastname;
-    private @NotNull String username;
-    private @NotNull String password;
+    private @NonNull Long id;
+    private @NonNull String firstname;
+    private @NonNull String lastname;
+    private @NonNull String username;
+    private @NonNull String password;
     private LocalDateTime lastLoggedIn;
-
-    public User() { }
-
-    public User(String firstname, String lastname, String username, String password, LocalDateTime lastLoggedIn) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.username = username;
-        this.password = password;
-        this.lastLoggedIn = lastLoggedIn;
-    }
 }
