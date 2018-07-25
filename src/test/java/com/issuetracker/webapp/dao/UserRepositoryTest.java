@@ -53,7 +53,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void shouldReturnAllEntriesFromDB(){
+    public void shouldReturnAllEntriesFromDBWhenThereIsAnyInTheDB(){
         when(jdbcTemplate.query(FIND_ALL_QUERY, userRepository.userRowMapper)).thenReturn(moreThanOneExampleUsers);
         List<User> actualUsers = userRepository.findAll();
         assertThat(actualUsers, equalTo(moreThanOneExampleUsers));
