@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public class UserRepository {
 
+    final static String findAllQuery = "SELECT * FROM it_user;";
+    final static String findById = "SELECT * FROM it_user WHERE id=?;";
     private JdbcTemplate jdbcTemplate;
 
     public UserRepository(JdbcTemplate jdbcTemplate) {
@@ -18,10 +20,10 @@ public class UserRepository {
     }
 
     public User findById(Long id){
-        return jdbcTemplate.queryForObject("SELECT * FROM it_user WHERE id=?;", new Object[] { id }, new BeanPropertyRowMapper<>(User.class));
+        return jdbcTemplate.queryForObject(findById, new Object[] { id }, new BeanPropertyRowMapper<>(User.class));
     }
 
     public List<User> findAll(){
-        return jdbcTemplate.query("SELECT * FROM it_user;", new UserRowMapper());
+        return jdbcTemplate.query(findAllQuery, new UserRowMapper());
     }
 }
