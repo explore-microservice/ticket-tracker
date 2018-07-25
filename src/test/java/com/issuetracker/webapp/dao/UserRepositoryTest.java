@@ -53,4 +53,11 @@ public class UserRepositoryTest {
         User actualUser = userRepository.findById(1L);
         assertThat(actualUser, equalTo(expectedUser));
     }
+
+    @Test
+    public void testFindByIdShouldReturnNullWhenThereIsNoEntryInForTheRequestedId(){
+        when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { 1L }, userRepository.userRowMapper)).thenReturn(null);
+        User actualUser = userRepository.findById(1L);
+        assertThat(actualUser, equalTo(null));
+    }
 }
