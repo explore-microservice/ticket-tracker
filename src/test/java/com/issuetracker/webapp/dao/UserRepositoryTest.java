@@ -37,7 +37,7 @@ public class UserRepositoryTest {
             User.builder().id(1L).firstname("John").lastname("Doe").username("john_doe").password("unhackable").build(),
             User.builder().id(2L).firstname("Katy").lastname("Doe").username("katy_doe").password("canyouhackthis?").build(),
             User.builder().id(3L).firstname("Mary").lastname("Paris").username("mary_paris").password("trythisone").build(),
-            User.builder().id(3L).firstname("Mike").lastname("Gile").username("mike_gile").password("stronghuhh").build()
+            User.builder().id(4L).firstname("Mike").lastname("Gile").username("mike_gile").password("stronghuhh").build()
     );
 
     @BeforeMethod
