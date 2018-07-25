@@ -31,8 +31,10 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testEmptyList(){
+    public void testShouldReturnEmptyListWhenJDBCTemplateReturnsEmptyList(){
         when(jdbcTemplate.query("SELECT * FROM it_user;", new UserRowMapper())).thenReturn(new ArrayList<>());
-        assertThat("message", Collections.EMPTY_LIST, equalTo(userRepository.findAll()));
+        assertThat("UserRepository should return empty list when jdbcTemplate returns empty list.",
+                Collections.EMPTY_LIST, equalTo(userRepository.findAll()));
+    }
     }
 }
