@@ -1,7 +1,6 @@
 package com.issuetracker.webapp.dao;
 
 import com.issuetracker.webapp.pojo.User;
-import com.issuetracker.webapp.pojo.UserRowMapper;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,8 +22,23 @@ public class UserRepositoryTest {
 
     @Mock
     private JdbcTemplate jdbcTemplate;
-
     private UserRepository userRepository;
+
+    private static User oneExampleUser = User.builder()
+            .id(1L)
+            .firstname("firstname")
+            .lastname("lastname")
+            .username("username")
+            .password("password")
+            .lastLoggedIn(LocalDateTime.now())
+            .build();
+
+    private static List<User> moreThanOneExampleUsers = Arrays.asList(
+            User.builder().id(1L).firstname("John").lastname("Doe").username("john_doe").password("unhackable").build(),
+            User.builder().id(2L).firstname("Katy").lastname("Doe").username("katy_doe").password("canyouhackthis?").build(),
+            User.builder().id(3L).firstname("Mary").lastname("Paris").username("mary_paris").password("trythisone").build(),
+            User.builder().id(3L).firstname("Mike").lastname("Gile").username("mike_gile").password("stronghuhh").build()
+    );
 
     @BeforeMethod
     public void init() {
@@ -41,32 +55,16 @@ public class UserRepositoryTest {
 
     @Test
     public void shouldReturnAllEntriesFromDB(){
-        List<User> expectedUsers = Arrays.asList(
-                User.builder().id(1L).firstname("John").lastname("Doe").username("john_doe").password("unhackable").build(),
-                User.builder().id(2L).firstname("Katy").lastname("Doe").username("katy_doe").password("canyouhackthis?").build(),
-                User.builder().id(3L).firstname("Mary").lastname("Paris").username("mary_paris").password("trythisone").build(),
-                User.builder().id(3L).firstname("Mike").lastname("Gile").username("mike_gile").password("stronghuhh").build()
-        );
-        when(jdbcTemplate.query(FIND_ALL_QUERY, userRepository.userRowMapper)).thenReturn(expectedUsers);
+        when(jdbcTemplate.query(FIND_ALL_QUERY, userRepository.userRowMapper)).thenReturn(moreThanOneExampleUsers);
         List<User> actualUsers = userRepository.findAll();
-        assertThat(actualUsers, equalTo(expectedUsers));
+        assertThat(actualUsers, equalTo(moreThanOneExampleUsers));
     }
-
 
     @Test
     public void shouldReturnAnEntryWithTheIdIfJDBCTemplateReturnsAnEntry(){
-        User expectedUser = User.builder()
-                .id(1L)
-                .firstname("firstname")
-                .lastname("lastname")
-                .username("username")
-                .password("password")
-                .lastLoggedIn(LocalDateTime.now())
-                .build();
-
-        when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { 1L }, userRepository.userRowMapper)).thenReturn(expectedUser);
+        when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { 1L }, userRepository.userRowMapper)).thenReturn(oneExampleUser);
         User actualUser = userRepository.findById(1L);
-        assertThat(actualUser, equalTo(expectedUser));
+        assertThat(actualUser, equalTo(oneExampleUser));
     }
 
     @Test
