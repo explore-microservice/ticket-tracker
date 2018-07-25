@@ -4,36 +4,36 @@ import com.issuetracker.webapp.pojo.User;
 import com.issuetracker.webapp.pojo.UserRowMapper;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.issuetracker.webapp.dao.UserRepository.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.mockito.Mockito.*;
 
-
 public class UserRepositoryTest {
 
     @Mock
-    private JdbcTemplate jdbcTemplateMock;
+    private JdbcTemplate jdbcTemplate;
 
     private UserRepository userRepository;
 
     @BeforeMethod
     public void init() {
         MockitoAnnotations.initMocks(this);
-        userRepository = new UserRepository(jdbcTemplateMock);
+        userRepository = new UserRepository(jdbcTemplate);
     }
 
     @Test
     public void testFindAllShouldReturnEmptyListWhenJDBCTemplateReturnsEmptyList() {
-        when(jdbcTemplateMock.query(UserRepository.findAllQuery, new UserRowMapper())).thenReturn(new ArrayList<>());
-        assertThat("UserRepository should return empty list when jdbcTemplateMock returns empty list.",
+        when(jdbcTemplate.query(FIND_USER_BY_ID_QUERY, new UserRowMapper())).thenReturn(new ArrayList<>());
+        assertThat("UserRepository should return empty list when jdbcTemplate returns empty list.",
                 Collections.EMPTY_LIST, equalTo(userRepository.findAll()));
     }
 
@@ -46,12 +46,11 @@ public class UserRepositoryTest {
                 .lastname("lastname")
                 .username("username")
                 .password("password")
+                .lastLoggedIn(LocalDateTime.now())
                 .build();
-        when(jdbcTemplateMock.queryForObject(UserRepository.findById, new Object[] { 1L }, new BeanPropertyRowMapper<>(User.class)))
-                .thenReturn(expectedUser);
 
+        when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { 1L }, userRepository.userRowMapper)).thenReturn(expectedUser);
         User actualUser = userRepository.findById(1L);
-
         assertThat(actualUser, equalTo(expectedUser));
     }
 }
