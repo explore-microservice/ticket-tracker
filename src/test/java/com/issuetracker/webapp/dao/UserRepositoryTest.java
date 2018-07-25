@@ -33,14 +33,14 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testFindAllShouldReturnEmptyListWhenJDBCTemplateReturnsEmptyList() {
+    public void shouldReturnEmptyListWhenJDBCTemplateReturnsEmptyList() {
         when(jdbcTemplate.query(FIND_ALL_QUERY, userRepository.userRowMapper)).thenReturn(new ArrayList<>());
         assertThat("UserRepository should return empty list when jdbcTemplate returns empty list.",
                 Collections.EMPTY_LIST, equalTo(userRepository.findAll()));
     }
 
     @Test
-    public void testFindAll_ShouldReturnAllEntriesFromDB(){
+    public void shouldReturnAllEntriesFromDB(){
         List<User> expectedUsers = Arrays.asList(
                 User.builder().id(1L).firstname("John").lastname("Doe").username("john_doe").password("unhackable").build(),
                 User.builder().id(2L).firstname("Katy").lastname("Doe").username("katy_doe").password("canyouhackthis?").build(),
@@ -54,7 +54,7 @@ public class UserRepositoryTest {
 
 
     @Test
-    public void testFindByIdShouldReturnAnEntryWithTheIdIfJDBCTemplateReturnsAnEntry(){
+    public void shouldReturnAnEntryWithTheIdIfJDBCTemplateReturnsAnEntry(){
         User expectedUser = User.builder()
                 .id(1L)
                 .firstname("firstname")
@@ -70,7 +70,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testFindByIdShouldReturnNullWhenThereIsNoEntryInForTheRequestedId(){
+    public void shouldReturnNullWhenThereIsNoEntryInForTheRequestedId(){
         when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { 1L }, userRepository.userRowMapper)).thenReturn(null);
         User actualUser = userRepository.findById(1L);
         assertThat(actualUser, equalTo(null));
