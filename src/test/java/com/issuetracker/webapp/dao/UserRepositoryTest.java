@@ -10,7 +10,9 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static com.issuetracker.webapp.dao.UserRepository.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -32,9 +34,22 @@ public class UserRepositoryTest {
 
     @Test
     public void testFindAllShouldReturnEmptyListWhenJDBCTemplateReturnsEmptyList() {
-        when(jdbcTemplate.query(FIND_USER_BY_ID_QUERY, new UserRowMapper())).thenReturn(new ArrayList<>());
+        when(jdbcTemplate.query(FIND_ALL_QUERY, userRepository.userRowMapper)).thenReturn(new ArrayList<>());
         assertThat("UserRepository should return empty list when jdbcTemplate returns empty list.",
                 Collections.EMPTY_LIST, equalTo(userRepository.findAll()));
+    }
+
+    @Test
+    public void testFindAll_ShouldReturnAllEntriesFromDB(){
+        List<User> expectedUsers = Arrays.asList(
+                User.builder().id(1L).firstname("John").lastname("Doe").username("john_doe").password("unhackable").build(),
+                User.builder().id(2L).firstname("Katy").lastname("Doe").username("katy_doe").password("canyouhackthis?").build(),
+                User.builder().id(3L).firstname("Mary").lastname("Paris").username("mary_paris").password("trythisone").build(),
+                User.builder().id(3L).firstname("Mike").lastname("Gile").username("mike_gile").password("stronghuhh").build()
+        );
+        when(jdbcTemplate.query(FIND_ALL_QUERY, userRepository.userRowMapper)).thenReturn(expectedUsers);
+        List<User> actualUsers = userRepository.findAll();
+        assertThat(actualUsers, equalTo(expectedUsers));
     }
 
 
