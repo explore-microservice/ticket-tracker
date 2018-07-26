@@ -8,4 +8,6 @@ public interface UserService {
 
     List<User> getAllUsers();
     User findByEmail(String email);
+
+    List<User> searchForUsers(String email, String username, String firstName, String lastName);
 }
