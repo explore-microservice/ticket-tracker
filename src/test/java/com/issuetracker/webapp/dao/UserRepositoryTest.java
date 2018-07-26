@@ -1,14 +1,12 @@
 package com.issuetracker.webapp.dao;
 
 import com.issuetracker.webapp.pojo.User;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,30 +19,17 @@ import static org.mockito.Mockito.*;
 
 public class UserRepositoryTest {
 
+    private static final String A_USER_USERNAME = "aUserName";
+    private static final String A_USER_PASSWORD = "aPassword";
+    private static final String A_USER_FIRST_NAME = "aFirstName";
+    private static final String A_USER_LAST_NAME = "aLastName";
+    private static final Long EXPECTED_USER_ID = 1L;
+    private static final User EXPECTED_USER = aUser(EXPECTED_USER_ID);
+    private static final List<User> EXPECTED_LIST_OF_USERS = aListOfUsers();
+
     @Mock
     private JdbcTemplate jdbcTemplate;
     private UserRepository userRepository;
-
-    private static User.UserBuilder userBuilder = User.builder()
-            .firstname(RandomStringUtils.random(8))
-            .lastname(RandomStringUtils.random(8))
-            .username(RandomStringUtils.random(8))
-            .password(RandomStringUtils.random(8))
-            .lastLoggedIn(LocalDateTime.now())
-            .build().toBuilder();
-
-    private static User getExpectedUser(){
-        return userBuilder.id(1L).build();
-    }
-
-    private static List<User> getExpectedUsers(){
-        return Arrays.asList(
-                userBuilder.id(1L).build(),
-                userBuilder.id(2L).build(),
-                userBuilder.id(3L).build(),
-                userBuilder.id(4L).build()
-        );
-    }
 
     @BeforeMethod
     public void init() {
@@ -60,22 +45,41 @@ public class UserRepositoryTest {
 
     @Test
     public void shouldReturnAllEntriesFromDBWhenThereIsAnyInTheDB(){
-        when(jdbcTemplate.query(FIND_ALL_QUERY, userRepository.userRowMapper)).thenReturn(getExpectedUsers());
+        when(jdbcTemplate.query(FIND_ALL_QUERY, userRepository.userRowMapper)).thenReturn(EXPECTED_LIST_OF_USERS);
         List<User> actualUsers = userRepository.findAll();
-        assertThat(actualUsers, equalTo(getExpectedUsers()));
+        assertThat(actualUsers, equalTo(EXPECTED_LIST_OF_USERS));
     }
 
     @Test
     public void shouldReturnAnEntryWithTheIdIfJDBCTemplateReturnsAnEntry(){
-        when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { 1L }, userRepository.userRowMapper)).thenReturn(getExpectedUser());
-        User actualUser = userRepository.findById(1L);
-        assertThat(actualUser, equalTo(getExpectedUser()));
+        when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { EXPECTED_USER_ID }, userRepository.userRowMapper)).thenReturn(EXPECTED_USER);
+        User actualUser = userRepository.findById(EXPECTED_USER_ID);
+        assertThat(actualUser, equalTo(EXPECTED_USER));
     }
 
     @Test
     public void shouldReturnNullWhenThereIsNoEntryInForTheRequestedId(){
-        when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { 1L }, userRepository.userRowMapper)).thenReturn(null);
-        User actualUser = userRepository.findById(1L);
+        when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { EXPECTED_USER_ID }, userRepository.userRowMapper)).thenReturn(null);
+        User actualUser = userRepository.findById(EXPECTED_USER_ID);
         assertThat(actualUser, equalTo(null));
+    }
+
+    private static User aUser(Long id) {
+        return User.builder()
+                .firstname(A_USER_FIRST_NAME)
+                .lastname(A_USER_LAST_NAME)
+                .username(A_USER_USERNAME)
+                .password(A_USER_PASSWORD)
+                .id(id)
+        .build();
+    }
+
+    private static List<User> aListOfUsers(){
+        return Arrays.asList(
+                aUser(1L),
+                aUser(2L),
+                aUser(3L),
+                aUser(4L)
+        );
     }
 }
