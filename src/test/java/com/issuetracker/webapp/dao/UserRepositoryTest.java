@@ -24,7 +24,7 @@ public class UserRepositoryTest {
     private JdbcTemplate jdbcTemplate;
     private UserRepository userRepository;
 
-    private static User oneExampleUser = User.builder()
+    private static User expectedUser = User.builder()
             .id(1L)
             .firstname("firstname")
             .lastname("lastname")
@@ -33,7 +33,7 @@ public class UserRepositoryTest {
             .lastLoggedIn(LocalDateTime.now())
             .build();
 
-    private static List<User> moreThanOneExampleUsers = Arrays.asList(
+    private static List<User> expectedUsers = Arrays.asList(
             User.builder().id(1L).firstname("John").lastname("Doe").username("john_doe").password("unhackable").build(),
             User.builder().id(2L).firstname("Katy").lastname("Doe").username("katy_doe").password("canyouhackthis?").build(),
             User.builder().id(3L).firstname("Mary").lastname("Paris").username("mary_paris").password("trythisone").build(),
@@ -54,16 +54,16 @@ public class UserRepositoryTest {
 
     @Test
     public void shouldReturnAllEntriesFromDBWhenThereIsAnyInTheDB(){
-        when(jdbcTemplate.query(FIND_ALL_QUERY, userRepository.userRowMapper)).thenReturn(moreThanOneExampleUsers);
+        when(jdbcTemplate.query(FIND_ALL_QUERY, userRepository.userRowMapper)).thenReturn(expectedUsers);
         List<User> actualUsers = userRepository.findAll();
-        assertThat(actualUsers, equalTo(moreThanOneExampleUsers));
+        assertThat(actualUsers, equalTo(expectedUsers));
     }
 
     @Test
     public void shouldReturnAnEntryWithTheIdIfJDBCTemplateReturnsAnEntry(){
-        when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { 1L }, userRepository.userRowMapper)).thenReturn(oneExampleUser);
+        when(jdbcTemplate.queryForObject(FIND_USER_BY_ID_QUERY, new Object[] { 1L }, userRepository.userRowMapper)).thenReturn(expectedUser);
         User actualUser = userRepository.findById(1L);
-        assertThat(actualUser, equalTo(oneExampleUser));
+        assertThat(actualUser, equalTo(expectedUser));
     }
 
     @Test
