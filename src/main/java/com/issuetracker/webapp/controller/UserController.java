@@ -19,4 +19,9 @@ public class UserController {
     public List<User> users(){
         return userService.getAllUsers();
     }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public User userByEmail(@RequestParam("email") String email){
+        return userService.findByEmail(email);
+    }
 }
