@@ -1,4 +1,4 @@
-CREATE TABLE it_user (id int NOT NULL, firstname varchar(50) NOT NULL, lastname varchar(50) NOT NULL, username varchar(20) NOT NULL, password varchar(255) NOT NULL, lastloggedin timestamp, PRIMARY KEY (id));
+CREATE TABLE it_user (id int NOT NULL, firstname varchar(50) NOT NULL, lastname varchar(50) NOT NULL, username varchar(20) NOT NULL, password varchar(255) NOT NULL, email varchar(255) NOT NULL UNIQUE, lastloggedin timestamp, PRIMARY KEY (id));
 CREATE TABLE it_project (id int NOT NULL, name varchar(255) NOT NULL, description varchar(255), creationdate timestamp NOT NULL, startdate timestamp, enddate timestamp, PRIMARY KEY (id));
 CREATE TABLE it_userworksonproject (userid int NOT NULL, projectid int NOT NULL, PRIMARY KEY (userid, projectid));
 CREATE TABLE it_issue (id int NOT NULL, name varchar(255) NOT NULL, description varchar(255), creationdate timestamp NOT NULL, sprintid int, creatoruserid int NOT NULL, assigneeuserid int NOT NULL, PRIMARY KEY (id));
