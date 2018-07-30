@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Builder
+@Builder(toBuilder = true)
 public class User {
 
     @Id
