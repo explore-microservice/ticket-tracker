@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,6 +22,7 @@ public class User {
     private @NonNull String firstname;
     private @NonNull String lastname;
     private @NonNull String username;
+    private @NotNull String email;
     private @NonNull String password;
     private LocalDateTime lastLoggedIn;
 }
