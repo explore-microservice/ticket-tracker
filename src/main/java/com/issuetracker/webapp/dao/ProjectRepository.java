@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ProjectRepository {
 
+    static final String FIND_PROJECT_BY_ID_QUERY = "SELECT * FROM it_project WHERE id=?;";
     private JdbcTemplate jdbcTemplate;
     private ProjectRowMapper projectRowMapper = new ProjectRowMapper();
 
@@ -16,6 +17,6 @@ public class ProjectRepository {
     }
 
     public Project findById(Long id){
-        return jdbcTemplate.queryForObject("SELECT * FROM it_project WHERE id=?;", new Object[] { id }, projectRowMapper);
+        return jdbcTemplate.queryForObject(FIND_PROJECT_BY_ID_QUERY, new Object[] { id }, projectRowMapper);
     }
 }
