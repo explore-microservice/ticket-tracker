@@ -1,6 +1,5 @@
 package com.issuetracker.webapp.service;
 
-import antlr.StringUtils;
 import com.issuetracker.webapp.dao.UserRepository;
 import com.issuetracker.webapp.pojo.User;
 import org.slf4j.Logger;
@@ -39,10 +38,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll().stream()
                 .filter(user ->
                         (!email.isEmpty() && user.getEmail().contains(email)) ||
-                        (!username.isEmpty() && user.getUsername().contains(username)) ||
-                        (!firstName.isEmpty() && user.getUsername().contains(firstName)) ||
-                        (!lastName.isEmpty() && user.getUsername().contains(lastName))
-
-                ).peek(user -> logger.info(user.toString())).collect(Collectors.toList());
+                                (!username.isEmpty() && user.getUsername().contains(username)) ||
+                                (!firstName.isEmpty() && user.getUsername().contains(firstName)) ||
+                                (!lastName.isEmpty() && user.getUsername().contains(lastName)))
+                .peek(user -> logger.info(user.toString())).collect(Collectors.toList());
     }
 }
