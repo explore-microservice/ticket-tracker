@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String email) {
         return userRepository.findAll().stream()
                 .filter(user -> user.getEmail().equals(email))
-                .findAny()
+                .findFirst()
                 .orElse(null);
     }
 
