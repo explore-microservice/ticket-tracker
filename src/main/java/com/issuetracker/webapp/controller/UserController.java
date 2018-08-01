@@ -1,9 +1,15 @@
 package com.issuetracker.webapp.controller;
 
 import com.issuetracker.webapp.pojo.User;
+import com.issuetracker.webapp.pojo.UserWithProjects;
 import com.issuetracker.webapp.service.UserService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -37,5 +43,10 @@ public class UserController {
     @RequestMapping(value = "/project/{projectid}/users", method = RequestMethod.GET)
     public List<User> getAllUserOnProject(@PathVariable(value = "projectid") Long projectId){
         return userService.getAllUsersOnAProject(projectId);
+    }
+
+    @RequestMapping(value = "/userswithproject", method = RequestMethod.GET)
+    public Collection<UserWithProjects> getAllUsersWithProject(){
+        return userService.getAllUsersWithProject();
     }
 }
