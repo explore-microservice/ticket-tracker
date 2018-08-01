@@ -16,13 +16,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<User> users(){
+    public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public User userByEmail(@RequestParam("email") String email){
-        return userService.findByEmail(email);
+    public User getUserByEmail(@RequestParam("email") String email){
+        return userService.getAUserByEmail(email);
     }
 
     @RequestMapping(value = "/searchforuser", method = RequestMethod.GET)
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/project/{projectid}/users", method = RequestMethod.GET)
-    public List<User> usersOnProject(@PathVariable(value = "projectid") Long projectId){
-        return userService.findAllUsersOnAProject(projectId);
+    public List<User> getAllUserOnProject(@PathVariable(value = "projectid") Long projectId){
+        return userService.getAllUsersOnAProject(projectId);
     }
 }

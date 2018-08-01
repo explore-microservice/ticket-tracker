@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User findByEmail(String email) {
+    public User getAUserByEmail(String email) {
         return userRepository.findAll().stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst()
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllUsersOnAProject(Long projectId) {
+    public List<User> getAllUsersOnAProject(Long projectId) {
         return userRepository.findAllUsersOnAProject(projectId);
     }
 }
