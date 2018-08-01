@@ -29,7 +29,8 @@ public class UserResultSetExtractor implements ResultSetExtractor<Collection<Use
                                 .username(rs.getString("username"))
                                 .email(rs.getString("email"))
                                 .password(rs.getString("password"))
-                                .lastLoggedIn(Optional.ofNullable(rs.getTimestamp("lastLoggedIn")).map(Timestamp::toLocalDateTime).orElse(null))
+                                .lastLoggedIn(Optional.ofNullable(rs.getTimestamp("lastLoggedIn"))
+                                        .map(Timestamp::toLocalDateTime).orElse(null))
                                 .build())
                         .projects(new HashSet<>())
                 .build());
