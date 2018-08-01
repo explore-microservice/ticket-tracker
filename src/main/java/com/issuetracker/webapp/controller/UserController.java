@@ -2,10 +2,7 @@ package com.issuetracker.webapp.controller;
 
 import com.issuetracker.webapp.pojo.User;
 import com.issuetracker.webapp.service.UserService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +32,10 @@ public class UserController {
             @RequestParam(value = "firstname", required = false, defaultValue = "") String firstName,
             @RequestParam(value = "lastname", required = false, defaultValue = "") String lastName){
         return userService.searchForUsers(email, username, firstName, lastName);
+    }
+
+    @RequestMapping(value = "/project/{projectid}/users", method = RequestMethod.GET)
+    public List<User> usersOnProject(@PathVariable(value = "projectid") Long projectId){
+        return userService.findAllUsersOnAProject(projectId);
     }
 }

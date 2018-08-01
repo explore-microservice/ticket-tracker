@@ -13,6 +13,8 @@ public class UserRepository {
 
     final static String FIND_USER_BY_ID_QUERY = "SELECT * FROM it_user WHERE id=?;";
     final static String FIND_ALL_QUERY = "SELECT * FROM it_user;";
+    final static String FIND_ALL_USERS_AND_RELATED_PROJECTS = "SELECT u.*, p.* FROM it_user u LEFT OUTER JOIN it_userworksonproject uwp ON u.id = uwp.userid LEFT OUTER JOIN it_project p ON uwp.projectid = p.id;";
+    final static String FIND_ALL_USERS_WHO_WORKS_ON_PROJECT = "SELECT * FROM it_user u INNER JOIN it_userworksonproject uwp ON u.id = uwp.userid WHERE uwp.projectid=?";
     private JdbcTemplate jdbcTemplate;
 
     @VisibleForTesting
@@ -28,5 +30,9 @@ public class UserRepository {
 
     public List<User> findAll(){
         return jdbcTemplate.query(FIND_ALL_QUERY, userRowMapper);
+    }
+
+    public List<User> findAllUsersOnAProject(Long projectId){
+        return jdbcTemplate.query(FIND_ALL_USERS_WHO_WORKS_ON_PROJECT, new Object[] { projectId }, userRowMapper);
     }
 }

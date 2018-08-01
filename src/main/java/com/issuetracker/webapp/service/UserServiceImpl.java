@@ -43,4 +43,9 @@ public class UserServiceImpl implements UserService {
                                 (!lastName.isEmpty() && user.getUsername().contains(lastName)))
                 .peek(user -> logger.info(user.toString())).collect(Collectors.toList());
     }
+
+    @Override
+    public List<User> findAllUsersOnAProject(Long projectId) {
+        return userRepository.findAllUsersOnAProject(projectId);
+    }
 }
