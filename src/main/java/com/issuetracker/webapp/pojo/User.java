@@ -17,5 +17,5 @@ public class User {
     private @NonNull String username;
     private @NotNull String email;
     private @NonNull String password;
-    private LocalDateTime lastloggedin;
+    private LocalDateTime lastLoggedIn;
 }
