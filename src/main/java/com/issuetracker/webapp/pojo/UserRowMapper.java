@@ -18,7 +18,7 @@ public class UserRowMapper implements RowMapper<User> {
                 .username(resultSet.getString("username"))
                 .email(resultSet.getString("email"))
                 .password(resultSet.getString("password"))
-                .lastLoggedIn(Optional.ofNullable(resultSet.getTimestamp("lastloggedin")).map(Timestamp::toLocalDateTime).orElse(null))
+                .lastloggedin(Optional.ofNullable(resultSet.getTimestamp("lastloggedin")).map(Timestamp::toLocalDateTime).orElse(null))
                 .build();
     }
 }
