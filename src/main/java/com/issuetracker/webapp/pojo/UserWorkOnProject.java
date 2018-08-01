@@ -9,27 +9,26 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.Set;
 
 @Data
 @Builder
 @Entity
-@Table(name = "it_project")
-public class Project {
+@Table(name = "it_userworksonproject")
+public class UserWorkOnProject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private @NotNull Long id;
-    private @NotNull String name;
-    private String description;
-    private @NotNull LocalDateTime creationdate;
-    private LocalDateTime startdate;
-    private LocalDateTime enddate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    private Set<UserWorkOnProject> users;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "userid")
+    private @NotNull User user;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "projectid")
+    private @NotNull Project project;
 }
