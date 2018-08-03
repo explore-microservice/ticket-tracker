@@ -20,8 +20,9 @@ import static org.mockito.Mockito.when;
 public class UserServiceImplTest {
 
     private static final Long EXPECTED_USER_ID = 1L;
+    private static final String EXPECTED_USER_EMAIL = "email@email.com";
     private static final List<User> EXPECTED_LIST_OF_USERS = aListOfUsers();
-    private static final User EXPECTED_USER = UserUtils.aUser(EXPECTED_USER_ID);
+    private static final User EXPECTED_USER = UserUtils.aUser(EXPECTED_USER_ID, EXPECTED_USER_EMAIL);
 
     @Mock
     private UserRepository userRepository;
@@ -42,6 +43,16 @@ public class UserServiceImplTest {
     @Test
     public void shouldReturnEmptyListWhenTheRepositoryReturnsAnEmptyList(){
         when(userRepository.findAll()).thenReturn(new ArrayList<>());
-        assertThat(userRepository.findAll(), equalTo(Collections.EMPTY_LIST));
+        assertThat(userService.getAllUsers(), equalTo(Collections.EMPTY_LIST));
+    }
+
+    @Test
+    public void shouldReturnOneUserWhenAFullEmailIsRequestedAndTheEmailExistsInTheDB(){
+        when(userRepository.findAll()).thenCallRealMethod().thenReturn(EXPECTED_LIST_OF_USERS);
+        assertThat(userService.getAUserByEmail(EXPECTED_USER_EMAIL),
+                equalTo(EXPECTED_LIST_OF_USERS.stream()
+                        .filter(user -> user.getEmail().equals(EXPECTED_USER_EMAIL))
+                        .findFirst()
+                        .orElse(null)));
     }
 }
