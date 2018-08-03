@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,7 +18,6 @@ import static com.issuetracker.webapp.dao.UserRepository.FIND_ALL_USERS_WHO_WORK
 import static com.issuetracker.webapp.dao.UserRepository.FIND_USER_BY_ID_QUERY;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 public class UserRepositoryTest {

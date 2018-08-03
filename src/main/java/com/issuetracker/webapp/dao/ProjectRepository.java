@@ -1,5 +1,6 @@
 package com.issuetracker.webapp.dao;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.pojo.Project;
 import com.issuetracker.webapp.pojo.ProjectRowMapper;
@@ -12,7 +13,9 @@ public class ProjectRepository {
 
     static final String FIND_PROJECT_BY_ID_QUERY = "SELECT * FROM it_project WHERE id=?;";
     private JdbcTemplate jdbcTemplate;
-    private ProjectRowMapper projectRowMapper = new ProjectRowMapper();
+
+    @VisibleForTesting
+    ProjectRowMapper projectRowMapper = new ProjectRowMapper();
 
     public ProjectRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

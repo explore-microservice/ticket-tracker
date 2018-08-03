@@ -2,7 +2,6 @@ package com.issuetracker.webapp.dao;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
-import com.issuetracker.webapp.pojo.Project;
 import com.issuetracker.webapp.pojo.ProjectRowMapper;
 import com.issuetracker.webapp.pojo.User;
 import com.issuetracker.webapp.pojo.UserRowMapper;
