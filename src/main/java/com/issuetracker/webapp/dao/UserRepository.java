@@ -39,7 +39,7 @@ public class UserRepository {
         try {
             jdbcTemplate.queryForObject(ProjectRepository.FIND_PROJECT_BY_ID_QUERY, new Object[]{projectId}, Project.class);
         }catch (EmptyResultDataAccessException ex){
-            throw new ProjectNotFoundException("Project not found", ex);
+            throw new ProjectNotFoundException("Project not found with id: " + projectId, ex);
         }
 
         return jdbcTemplate.query(FIND_ALL_USERS_WHO_WORKS_ON_PROJECT, new Object[] { projectId }, userRowMapper);

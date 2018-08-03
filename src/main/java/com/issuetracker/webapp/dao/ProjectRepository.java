@@ -23,7 +23,7 @@ public class ProjectRepository {
         try {
             project = jdbcTemplate.queryForObject(FIND_PROJECT_BY_ID_QUERY, new Object[] { id }, projectRowMapper);
         } catch (EmptyResultDataAccessException ex){
-            throw new ProjectNotFoundException("Project not found in the DB.", ex);
+            throw new ProjectNotFoundException("Project not found with id: " + id, ex);
         }
         return project;
     }
