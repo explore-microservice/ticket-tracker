@@ -31,7 +31,7 @@ public class UserController {
         return userService.getAUserByEmail(email);
     }
 
-    @RequestMapping(value = "/searchforuser", method = RequestMethod.GET)
+    @RequestMapping(value = "/searchforusers", method = RequestMethod.GET)
     public List<User> searchForUsers(
             @RequestParam(value = "email", required = false, defaultValue = "") String email,
             @RequestParam(value = "username", required = false, defaultValue = "") String username,
