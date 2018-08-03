@@ -34,6 +34,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getAUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
     public List<User> searchForUsers(String email, String username, String firstName, String lastName) {
         return userRepository.findAll().stream()
                 .filter(user ->
