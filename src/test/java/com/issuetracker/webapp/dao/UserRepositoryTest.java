@@ -9,26 +9,24 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static com.issuetracker.webapp.dao.UserRepository.FIND_ALL_QUERY;
 import static com.issuetracker.webapp.dao.UserRepository.FIND_ALL_USERS_WHO_WORKS_ON_PROJECT;
 import static com.issuetracker.webapp.dao.UserRepository.FIND_USER_BY_ID_QUERY;
+import static com.issuetracker.webapp.utils.UserUtils.aListOfUsers;
+import static com.issuetracker.webapp.utils.UserUtils.aUser;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
 public class UserRepositoryTest {
 
-    private static final String A_USER_USERNAME = "aUserName";
-    private static final String A_USER_PASSWORD = "aPassword";
-    private static final String A_USER_FIRST_NAME = "aFirstName";
-    private static final String A_USER_LAST_NAME = "aLastName";
     private static final Long EXPECTED_USER_ID = 1L;
     private static final User EXPECTED_USER = aUser(EXPECTED_USER_ID);
     private static final List<User> EXPECTED_LIST_OF_USERS = aListOfUsers();
+
     private static final Long EXPECTED_PROJECT_ID = 1L;
 
     @Mock
@@ -87,22 +85,5 @@ public class UserRepositoryTest {
         assertThat(userRepository.findAllUsersOnAProject(EXPECTED_PROJECT_ID), equalTo(Collections.EMPTY_LIST));
     }
 
-    private static User aUser(Long id) {
-        return User.builder()
-                .firstname(A_USER_FIRST_NAME)
-                .lastname(A_USER_LAST_NAME)
-                .username(A_USER_USERNAME)
-                .password(A_USER_PASSWORD)
-                .id(id)
-        .build();
-    }
 
-    private static List<User> aListOfUsers(){
-        return Arrays.asList(
-                aUser(1L),
-                aUser(2L),
-                aUser(3L),
-                aUser(4L)
-        );
-    }
 }
