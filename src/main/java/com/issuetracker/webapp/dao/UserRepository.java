@@ -1,8 +1,11 @@
 package com.issuetracker.webapp.dao;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
+import com.issuetracker.webapp.pojo.Project;
 import com.issuetracker.webapp.pojo.User;
 import com.issuetracker.webapp.pojo.UserRowMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -32,7 +35,13 @@ public class UserRepository {
         return jdbcTemplate.query(FIND_ALL_QUERY, userRowMapper);
     }
 
-    public List<User> findAllUsersOnAProject(Long projectId){
+    public List<User> findAllUsersOnAProject(Long projectId) throws ProjectNotFoundException {
+        try {
+            jdbcTemplate.queryForObject(ProjectRepository.FIND_PROJECT_BY_ID_QUERY, new Object[]{projectId}, Project.class);
+        }catch (EmptyResultDataAccessException ex){
+            throw new ProjectNotFoundException("Project not found", ex);
+        }
+
         return jdbcTemplate.query(FIND_ALL_USERS_WHO_WORKS_ON_PROJECT, new Object[] { projectId }, userRowMapper);
     }
 }

@@ -1,7 +1,9 @@
 package com.issuetracker.webapp.dao;
 
+import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.pojo.Project;
 import com.issuetracker.webapp.pojo.ProjectRowMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +19,12 @@ public class ProjectRepository {
     }
 
     public Project findById(Long id){
-        return jdbcTemplate.queryForObject(FIND_PROJECT_BY_ID_QUERY, new Object[] { id }, projectRowMapper);
+        Project project;
+        try {
+            project = jdbcTemplate.queryForObject(FIND_PROJECT_BY_ID_QUERY, new Object[] { id }, projectRowMapper);
+        } catch (EmptyResultDataAccessException ex){
+            throw new ProjectNotFoundException("Project not found in the DB.", ex);
+        }
+        return project;
     }
 }
