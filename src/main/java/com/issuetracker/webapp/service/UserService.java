@@ -12,5 +12,4 @@ public interface UserService {
     User getAUserByEmail(String email);
     List<User> searchForUsers(String email, String username, String firstName, String lastName);
     List<User> getAllUsersOnAProject(Long projectId);
-    Collection<UserWithProjects> getAllUsersWithProject();
 }

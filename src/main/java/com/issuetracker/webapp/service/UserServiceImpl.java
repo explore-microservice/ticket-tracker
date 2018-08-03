@@ -50,9 +50,4 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsersOnAProject(Long projectId) {
         return userRepository.findAllUsersOnAProject(projectId);
     }
-
-    @Override
-    public Collection<UserWithProjects> getAllUsersWithProject() {
-        return userRepository.findAllWithRelatedProjects();
-    }
 }

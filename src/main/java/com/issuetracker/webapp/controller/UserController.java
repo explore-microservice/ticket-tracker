@@ -44,9 +44,4 @@ public class UserController {
     public List<User> getAllUserOnProject(@PathVariable(value = "projectid") Long projectId){
         return userService.getAllUsersOnAProject(projectId);
     }
-
-    @RequestMapping(value = "/userswithproject", method = RequestMethod.GET)
-    public Collection<UserWithProjects> getAllUsersWithProject(){
-        return userService.getAllUsersWithProject();
-    }
 }
