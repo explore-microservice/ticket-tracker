@@ -2,12 +2,10 @@ package com.issuetracker.webapp.service;
 
 import com.issuetracker.webapp.dao.UserRepository;
 import com.issuetracker.webapp.pojo.User;
-import com.issuetracker.webapp.pojo.UserWithProjects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

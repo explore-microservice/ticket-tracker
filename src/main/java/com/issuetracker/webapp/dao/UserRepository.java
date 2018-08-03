@@ -2,13 +2,10 @@ package com.issuetracker.webapp.dao;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.issuetracker.webapp.pojo.User;
-import com.issuetracker.webapp.pojo.UserResultSetExtractor;
 import com.issuetracker.webapp.pojo.UserRowMapper;
-import com.issuetracker.webapp.pojo.UserWithProjects;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
 
 @Repository

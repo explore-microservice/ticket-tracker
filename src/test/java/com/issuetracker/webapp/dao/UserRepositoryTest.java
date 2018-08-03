@@ -12,10 +12,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.issuetracker.webapp.dao.UserRepository.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.mockito.Mockito.*;
+import static com.issuetracker.webapp.dao.UserRepository.FIND_ALL_QUERY;
+import static com.issuetracker.webapp.dao.UserRepository.FIND_USER_BY_ID_QUERY;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.when;
 
 public class UserRepositoryTest {
 

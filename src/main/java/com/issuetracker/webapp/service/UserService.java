@@ -1,9 +1,7 @@
 package com.issuetracker.webapp.service;
 
 import com.issuetracker.webapp.pojo.User;
-import com.issuetracker.webapp.pojo.UserWithProjects;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface UserService {
