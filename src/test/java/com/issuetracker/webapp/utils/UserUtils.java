@@ -15,8 +15,8 @@ public abstract class UserUtils {
 
     public static User aUser(Long id) {
         return User.builder()
-                .firstname(A_USER_FIRST_NAME)
-                .lastname(A_USER_LAST_NAME)
+                .firstName(A_USER_FIRST_NAME)
+                .lastName(A_USER_LAST_NAME)
                 .username(A_USER_USERNAME)
                 .email(A_USER_EMAIL_ADDRESS)
                 .password(A_USER_PASSWORD)
@@ -26,8 +26,8 @@ public abstract class UserUtils {
 
     public static User aUser(Long id, String emailAddress) {
         return User.builder()
-                .firstname(A_USER_FIRST_NAME)
-                .lastname(A_USER_LAST_NAME)
+                .firstName(A_USER_FIRST_NAME)
+                .lastName(A_USER_LAST_NAME)
                 .username(A_USER_USERNAME)
                 .email(emailAddress)
                 .password(A_USER_PASSWORD)

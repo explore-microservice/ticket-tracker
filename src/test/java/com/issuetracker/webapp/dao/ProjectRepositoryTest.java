@@ -53,7 +53,7 @@ public class ProjectRepositoryTest {
                 .id(projectId)
                 .name(A_PROJECT_NAME)
                 .description(A_PROJECT_DESCRIPTION)
-                .creationdate(A_PROJECT_CREATION_DATE)
+                .creationDate(A_PROJECT_CREATION_DATE)
                 .build();
     }
 }
