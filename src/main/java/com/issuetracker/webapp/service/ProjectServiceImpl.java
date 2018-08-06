@@ -1,6 +1,7 @@
 package com.issuetracker.webapp.service;
 
 import com.issuetracker.webapp.dao.ProjectRepository;
+import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.pojo.Project;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project getProjectById(Long id) {
+    public Project getProjectById(Long id) throws ProjectNotFoundException {
         return projectRepository.findById(id);
     }
 }

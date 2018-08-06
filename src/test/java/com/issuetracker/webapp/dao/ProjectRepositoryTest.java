@@ -4,6 +4,8 @@ import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.pojo.Project;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -35,14 +37,14 @@ public class ProjectRepositoryTest {
     }
 
     @Test
-    public void shouldReturnRequestedProjectWhenItIsAvailableInTheDB() {
+    public void shouldReturnRequestedProjectWhenItIsAvailableInTheDB() throws ProjectNotFoundException {
         when(jdbcTemplate.queryForObject(FIND_PROJECT_BY_ID_QUERY, new Object[] { EXPECTED_PROJECT_ID }, projectRepository.projectRowMapper)).thenReturn(EXPECTED_PROJECT);
         assertThat(projectRepository.findById(EXPECTED_PROJECT_ID), equalTo(EXPECTED_PROJECT));
     }
 
     @Test(expectedExceptions = ProjectNotFoundException.class)
-    public void shouldReturnExceptionWhenTheRequestedProjectIsNotInTheDB(){
-        when(jdbcTemplate.queryForObject(FIND_PROJECT_BY_ID_QUERY, new Object[] { EXPECTED_PROJECT_ID }, projectRepository.projectRowMapper)).thenThrow(ProjectNotFoundException.class);
+    public void shouldReturnExceptionWhenTheRequestedProjectIsNotInTheDB() throws ProjectNotFoundException {
+        when(jdbcTemplate.queryForObject(FIND_PROJECT_BY_ID_QUERY, new Object[] { EXPECTED_PROJECT_ID }, projectRepository.projectRowMapper)).thenThrow(EmptyResultDataAccessException.class);
         projectRepository.findById(EXPECTED_PROJECT_ID);
     }
 

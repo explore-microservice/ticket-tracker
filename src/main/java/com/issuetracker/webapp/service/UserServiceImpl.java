@@ -1,6 +1,7 @@
 package com.issuetracker.webapp.service;
 
 import com.issuetracker.webapp.dao.UserRepository;
+import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsersOnAProject(Long projectId) {
+    public List<User> getAllUsersOnAProject(Long projectId) throws ProjectNotFoundException {
         return userRepository.findAllUsersOnAProject(projectId);
     }
 }

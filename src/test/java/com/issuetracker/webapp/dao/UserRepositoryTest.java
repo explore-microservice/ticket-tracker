@@ -4,6 +4,7 @@ import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.pojo.User;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -67,20 +68,20 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void shouldReturnAllUsersWhoWorksOnProjectWhenThereAreEntriesInTheDB(){
+    public void shouldReturnAllUsersWhoWorksOnProjectWhenThereAreEntriesInTheDB() throws ProjectNotFoundException {
         when(jdbcTemplate.query(FIND_ALL_USERS_WHO_WORKS_ON_PROJECT, new Object[] { EXPECTED_PROJECT_ID }, userRepository.userRowMapper)).thenReturn(EXPECTED_LIST_OF_USERS);
         List<User> actualUsersWhoWorkOnProject = userRepository.findAllUsersOnAProject(EXPECTED_PROJECT_ID);
         assertThat(actualUsersWhoWorkOnProject, equalTo(EXPECTED_LIST_OF_USERS));
     }
 
     @Test(expectedExceptions = ProjectNotFoundException.class)
-    public void shouldThrowExceptionWhenThereIsNoProjectInTheDBWithTheRequestedId(){
-        when(jdbcTemplate.query(FIND_ALL_USERS_WHO_WORKS_ON_PROJECT, new Object[] { EXPECTED_PROJECT_ID }, userRepository.userRowMapper)).thenThrow(ProjectNotFoundException.class);
+    public void shouldThrowExceptionWhenThereIsNoProjectInTheDBWithTheRequestedId() throws ProjectNotFoundException {
+        when(jdbcTemplate.queryForObject(ProjectRepository.FIND_PROJECT_BY_ID_QUERY, new Object[]{ EXPECTED_PROJECT_ID }, userRepository.projectRowMapper)).thenThrow(EmptyResultDataAccessException.class);
         userRepository.findAllUsersOnAProject(EXPECTED_PROJECT_ID);
     }
 
     @Test
-    public void shouldReturnEmptyListOfUsersWhenThereIsNoOneWorkingOnARequestedProject(){
+    public void shouldReturnEmptyListOfUsersWhenThereIsNoOneWorkingOnARequestedProject() throws ProjectNotFoundException {
         when(jdbcTemplate.query(FIND_ALL_USERS_WHO_WORKS_ON_PROJECT, new Object[] { EXPECTED_PROJECT_ID }, userRepository.userRowMapper)).thenReturn(new ArrayList<>());
         assertThat(userRepository.findAllUsersOnAProject(EXPECTED_PROJECT_ID), equalTo(Collections.EMPTY_LIST));
     }

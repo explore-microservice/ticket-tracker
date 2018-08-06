@@ -1,5 +1,6 @@
 package com.issuetracker.webapp.controller;
 
+import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.pojo.User;
 import com.issuetracker.webapp.service.UserService;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +45,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/project/{projectid}/users", method = RequestMethod.GET)
-    public List<User> getAllUserOnProject(@PathVariable(value = "projectid") Long projectId){
+    public List<User> getAllUserOnProject(@PathVariable(value = "projectid") Long projectId) throws ProjectNotFoundException {
         return userService.getAllUsersOnAProject(projectId);
     }
 }
