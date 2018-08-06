@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
-@Builder
+@Builder(toBuilder = true)
 public class User {
 
     private @NonNull Long id;
