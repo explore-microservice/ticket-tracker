@@ -48,7 +48,7 @@ public class UserServiceImplTest {
 
     @Test
     public void shouldReturnOneUserWhenAFullEmailIsRequestedAndTheEmailExistsInTheDB(){
-        when(userRepository.findAll()).thenCallRealMethod().thenReturn(EXPECTED_LIST_OF_USERS);
+        when(userRepository.findAll()).thenReturn(EXPECTED_LIST_OF_USERS);
         assertThat(userService.getAUserByEmail(EXPECTED_USER_EMAIL),
                 equalTo(EXPECTED_LIST_OF_USERS.stream()
                         .filter(user -> user.getEmail().equals(EXPECTED_USER_EMAIL))
