@@ -5,6 +5,7 @@ import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.pojo.ProjectRowMapper;
 import com.issuetracker.webapp.pojo.User;
 import com.issuetracker.webapp.pojo.UserRowMapper;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,8 @@ public class UserRepository {
 
     @VisibleForTesting
     UserRowMapper userRowMapper = new UserRowMapper();
-    private ProjectRowMapper projectRowMapper = new ProjectRowMapper();
+    @VisibleForTesting
+    ProjectRowMapper projectRowMapper = new ProjectRowMapper();
 
 
     public UserRepository(JdbcTemplate jdbcTemplate) {
@@ -39,7 +41,7 @@ public class UserRepository {
     public List<User> findAllUsersOnAProject(Long projectId) throws ProjectNotFoundException {
         try {
             jdbcTemplate.queryForObject(ProjectRepository.FIND_PROJECT_BY_ID_QUERY, new Object[]{ projectId }, projectRowMapper);
-        }catch (EmptyResultDataAccessException ex){
+        }catch (DataAccessException ex){
             throw new ProjectNotFoundException("Project not found with id: " + projectId, ex);
         }
 
