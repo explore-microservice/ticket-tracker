@@ -13,8 +13,8 @@ public class UserRowMapper implements RowMapper<User> {
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         return User.builder()
                 .id(resultSet.getLong("id"))
-                .firstname(resultSet.getString("firstname"))
-                .lastname(resultSet.getString("lastname"))
+                .firstName(resultSet.getString("firstName"))
+                .lastName(resultSet.getString("lastName"))
                 .username(resultSet.getString("username"))
                 .email(resultSet.getString("email"))
                 .password(resultSet.getString("password"))

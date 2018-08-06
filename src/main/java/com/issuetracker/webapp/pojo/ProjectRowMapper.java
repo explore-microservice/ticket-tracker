@@ -15,11 +15,10 @@ public class ProjectRowMapper implements RowMapper<Project> {
                 .id(resultSet.getLong("id"))
                 .name(resultSet.getString("name"))
                 .description(resultSet.getString("description"))
-                .creationdate(Optional.ofNullable(resultSet.getTimestamp("creationdate"))
+                .creationDate(resultSet.getTimestamp("creationDate").toLocalDateTime())
+                .startDate(Optional.ofNullable(resultSet.getTimestamp("startDate"))
                         .map(Timestamp::toLocalDateTime).orElse(null))
-                .startdate(Optional.ofNullable(resultSet.getTimestamp("startdate"))
-                        .map(Timestamp::toLocalDateTime).orElse(null))
-                .enddate(Optional.ofNullable(resultSet.getTimestamp("enddate"))
+                .endDate(Optional.ofNullable(resultSet.getTimestamp("endDate"))
                         .map(Timestamp::toLocalDateTime).orElse(null))
                 .build();
     }

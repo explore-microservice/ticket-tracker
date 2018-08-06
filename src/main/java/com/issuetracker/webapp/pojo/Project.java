@@ -13,7 +13,7 @@ public class Project {
     private @NotNull Long id;
     private @NotNull String name;
     private String description;
-    private @NotNull LocalDateTime creationdate;
-    private LocalDateTime startdate;
-    private LocalDateTime enddate;
+    private @NotNull LocalDateTime creationDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 }

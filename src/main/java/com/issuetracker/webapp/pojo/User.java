@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,10 +11,10 @@ import java.time.LocalDateTime;
 public class User {
 
     private @NonNull Long id;
-    private @NonNull String firstname;
-    private @NonNull String lastname;
+    private @NonNull String firstName;
+    private @NonNull String lastName;
     private @NonNull String username;
-    private @NotNull String email;
+    private @NonNull String email;
     private @NonNull String password;
     private LocalDateTime lastLoggedIn;
 }

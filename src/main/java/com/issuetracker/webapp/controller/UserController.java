@@ -39,8 +39,8 @@ public class UserController {
     public List<User> searchForUsers(
             @RequestParam(value = "email", required = false, defaultValue = "") String email,
             @RequestParam(value = "username", required = false, defaultValue = "") String username,
-            @RequestParam(value = "firstname", required = false, defaultValue = "") String firstName,
-            @RequestParam(value = "lastname", required = false, defaultValue = "") String lastName){
+            @RequestParam(value = "firstName", required = false, defaultValue = "") String firstName,
+            @RequestParam(value = "lastName", required = false, defaultValue = "") String lastName){
         return userService.searchForUsers(email, username, firstName, lastName);
     }
 
