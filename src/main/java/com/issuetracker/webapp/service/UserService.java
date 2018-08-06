@@ -8,8 +8,8 @@ import java.util.List;
 public interface UserService {
 
     List<User> getAllUsers();
-    User getAUserByEmail(String email);
-    User getAUserById(Long id);
+    User getUserByEmail(String email);
+    User getUserById(Long id);
     List<User> searchForUsers(String email, String username, String firstName, String lastName);
     List<User> getAllUsersOnAProject(Long projectId) throws ProjectNotFoundException;
 }

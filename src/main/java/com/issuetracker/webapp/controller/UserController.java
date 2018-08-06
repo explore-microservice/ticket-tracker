@@ -27,12 +27,12 @@ public class UserController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public User getUserByEmail(@RequestParam("email") String email){
-        return userService.getAUserByEmail(email);
+        return userService.getUserByEmail(email);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public User getUserById(@PathVariable Long id){
-        return userService.getAUserById(id);
+        return userService.getUserById(id);
     }
 
     @RequestMapping(value = "/searchforusers", method = RequestMethod.GET)
