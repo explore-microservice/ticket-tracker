@@ -15,13 +15,13 @@ public class UserResultSetExtractor implements ResultSetExtractor<Collection<Use
 
     @Override
     public Collection<UserWithProjects> extractData(ResultSet rs) throws SQLException, DataAccessException {
-        HashMap<Long, UserWithProjects> users = new HashMap<>();
+        HashMap<Long, UserWithProjects> usersWithRelatedProjects = new HashMap<>();
 
         while(rs.next()){
             Long userKey = rs.getLong("userid");
 
-            if(!users.containsKey(userKey)){
-                users.put(userKey, UserWithProjects.builder()
+            if(!usersWithRelatedProjects.containsKey(userKey)){
+                usersWithRelatedProjects.put(userKey, UserWithProjects.builder()
                         .user(User.builder()
                                 .id(userKey)
                                 .firstName(rs.getString("firstName"))
@@ -36,7 +36,7 @@ public class UserResultSetExtractor implements ResultSetExtractor<Collection<Use
                 .build());
             }
 
-            users.get(userKey).addProject(
+            usersWithRelatedProjects.get(userKey).addProject(
                     Project.builder()
                             .id(rs.getLong("projectid"))
                             .name(rs.getString("name"))
@@ -49,6 +49,6 @@ public class UserResultSetExtractor implements ResultSetExtractor<Collection<Use
                             .build()
             );
         }
-        return users.values();
+        return usersWithRelatedProjects.values();
     }
 }
