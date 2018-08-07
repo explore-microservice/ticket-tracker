@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
                                 (!username.isEmpty() && user.getUsername().contains(username)) ||
                                 (!firstName.isEmpty() && user.getUsername().contains(firstName)) ||
                                 (!lastName.isEmpty() && user.getUsername().contains(lastName)))
-                .peek(user -> logger.info(user.toString())).collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     @Override
