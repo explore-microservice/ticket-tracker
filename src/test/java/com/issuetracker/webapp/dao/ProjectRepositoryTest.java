@@ -4,7 +4,6 @@ import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.pojo.Project;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.testng.annotations.BeforeMethod;

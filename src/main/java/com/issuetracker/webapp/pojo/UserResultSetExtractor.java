@@ -1,6 +1,5 @@
 package com.issuetracker.webapp.pojo;
 
-import com.issuetracker.webapp.pojo.utils.ColumnUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
