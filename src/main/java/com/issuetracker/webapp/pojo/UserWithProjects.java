@@ -3,17 +3,15 @@ package com.issuetracker.webapp.pojo;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Singular;
 
 import java.util.Set;
 
 @Data
-@Builder
+@Builder(toBuilder = true)
 public class UserWithProjects {
 
     private User user;
+    @Singular
     private Set<Project> projects;
-
-    public void addProject(Project project){
-        projects.add(project);
-    }
 }
