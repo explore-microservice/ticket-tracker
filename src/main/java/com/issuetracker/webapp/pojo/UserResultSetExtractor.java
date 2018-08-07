@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Optional;
 
 public class UserResultSetExtractor implements ResultSetExtractor<Collection<UserWithProjects>> {
@@ -20,34 +19,31 @@ public class UserResultSetExtractor implements ResultSetExtractor<Collection<Use
         while(rs.next()){
             Long userKey = rs.getLong("userid");
 
-            if(!usersWithRelatedProjects.containsKey(userKey)){
-                usersWithRelatedProjects.put(userKey, UserWithProjects.builder()
-                        .user(User.builder()
-                                .id(userKey)
-                                .firstName(rs.getString("firstName"))
-                                .lastName(rs.getString("lastName"))
-                                .username(rs.getString("username"))
-                                .email(rs.getString("email"))
-                                .password(rs.getString("password"))
-                                .lastLoggedIn(Optional.ofNullable(rs.getTimestamp("lastLoggedIn"))
-                                        .map(Timestamp::toLocalDateTime).orElse(null))
-                                .build())
-                        .projects(new HashSet<>())
-                .build());
-            }
+            usersWithRelatedProjects.putIfAbsent(userKey, UserWithProjects.builder()
+                    .user(User.builder()
+                            .id(userKey)
+                            .firstName(rs.getString("firstName"))
+                            .lastName(rs.getString("lastName"))
+                            .username(rs.getString("username"))
+                            .email(rs.getString("email"))
+                            .password(rs.getString("password"))
+                            .lastLoggedIn(Optional.ofNullable(rs.getTimestamp("lastLoggedIn"))
+                                    .map(Timestamp::toLocalDateTime).orElse(null))
+                            .build())
+            .build());
 
-            usersWithRelatedProjects.get(userKey).addProject(
-                    Project.builder()
-                            .id(rs.getLong("projectid"))
-                            .name(rs.getString("name"))
-                            .description(rs.getString("description"))
-                            .creationDate(rs.getTimestamp("creationDate").toLocalDateTime())
-                            .startDate(Optional.ofNullable(rs.getTimestamp("startDate"))
-                                    .map(Timestamp::toLocalDateTime).orElse(null))
-                            .endDate(Optional.ofNullable(rs.getTimestamp("endDate"))
-                                    .map(Timestamp::toLocalDateTime).orElse(null))
-                            .build()
-            );
+            Project project = Project.builder()
+                    .id(rs.getLong("projectid"))
+                    .name(rs.getString("name"))
+                    .description(rs.getString("description"))
+                    .creationDate(rs.getTimestamp("creationDate").toLocalDateTime())
+                    .startDate(Optional.ofNullable(rs.getTimestamp("startDate"))
+                            .map(Timestamp::toLocalDateTime).orElse(null))
+                    .endDate(Optional.ofNullable(rs.getTimestamp("endDate"))
+                            .map(Timestamp::toLocalDateTime).orElse(null))
+                    .build();
+
+            usersWithRelatedProjects.computeIfPresent(userKey, (key, value) -> value.toBuilder().project(project).build());
         }
         return usersWithRelatedProjects.values();
     }
