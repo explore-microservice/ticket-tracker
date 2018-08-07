@@ -2,18 +2,18 @@ package com.issuetracker.webapp.pojo;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
 @Builder
 public class Project {
 
-    private @NotNull Long id;
-    private @NotNull String name;
+    private @NonNull Long id;
+    private @NonNull String name;
     private String description;
-    private @NotNull LocalDateTime creationDate;
+    private @NonNull LocalDateTime creationDate;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 }
