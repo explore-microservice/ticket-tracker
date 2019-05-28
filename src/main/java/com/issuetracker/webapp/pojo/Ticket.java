@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity(name = "it_project")
-public class Project {
+@Entity(name = "it_ticket")
+public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,27 +17,30 @@ public class Project {
     private String description;
     @Column(name = "creationdate")
     private LocalDateTime creationDate;
-    @Column(name = "startdate")
-    private LocalDateTime startDate;
-    @Column(name = "enddate")
-    private LocalDateTime endDate;
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private Set<Sprint> sprints;
-    @OneToMany(mappedBy = "project")
-    private Set<Works> usersWorkingOnIt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sprintid")
+    private Sprint sprint;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "creatoruserid")
+    private User creator;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assigneeuserid")
+    private User assignee;
+    @OneToMany(mappedBy = "ticket")
+    private Set<Comment> comments;
 
-    protected Project() {
+    public Ticket() {
     }
 
-    private Project(Builder builder) {
+    private Ticket(Builder builder) {
         id = builder.id;
         name = builder.name;
         description = builder.description;
         creationDate = builder.creationDate;
-        startDate = builder.startDate;
-        endDate = builder.endDate;
-        sprints = builder.sprints;
-        usersWorkingOnIt = builder.usersWorkingOnIt;
+        sprint = builder.sprint;
+        creator = builder.creator;
+        assignee = builder.assignee;
+        comments = builder.comments;
     }
 
     public Long getId() {
@@ -56,28 +59,28 @@ public class Project {
         return creationDate;
     }
 
-    public LocalDateTime getStartDate() {
-        return startDate;
+    public Sprint getSprint() {
+        return sprint;
     }
 
-    public LocalDateTime getEndDate() {
-        return endDate;
+    public User getCreator() {
+        return creator;
     }
 
-    public Set<Sprint> getSprints() {
-        return sprints;
+    public User getAssignee() {
+        return assignee;
     }
 
-    public Set<Works> getUsersWorkingOnIt() {
-        return usersWorkingOnIt;
+    public Set<Comment> getComments() {
+        return comments;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Project project = (Project) o;
-        return Objects.equals(id, project.id);
+        Ticket ticket = (Ticket) o;
+        return Objects.equals(id, ticket.id);
     }
 
     @Override
@@ -87,15 +90,15 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" +
+        return "Ticket{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", creationDate=" + creationDate +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", sprints=" + sprints +
-                ", usersWorkingOnIt=" + usersWorkingOnIt +
+                ", sprint=" + sprint +
+                ", creator=" + creator +
+                ", assignee=" + assignee +
+                ", comments=" + comments +
                 '}';
     }
 
@@ -104,10 +107,10 @@ public class Project {
         private String name;
         private String description;
         private LocalDateTime creationDate;
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
-        private Set<Sprint> sprints;
-        private Set<Works> usersWorkingOnIt;
+        private Sprint sprint;
+        private User creator;
+        private User assignee;
+        private Set<Comment> comments;
 
         public Builder() {
         }
@@ -132,28 +135,28 @@ public class Project {
             return this;
         }
 
-        public Builder withStartDate(LocalDateTime val) {
-            startDate = val;
+        public Builder withSprint(Sprint val) {
+            sprint = val;
             return this;
         }
 
-        public Builder withEndDate(LocalDateTime val) {
-            endDate = val;
+        public Builder withCreator(User val) {
+            creator = val;
             return this;
         }
 
-        public Builder withSprints(Set<Sprint> val) {
-            sprints = val;
+        public Builder withAssignee(User val) {
+            assignee = val;
             return this;
         }
 
-        public Builder withUsersWorkingOnIt(Set<Works> val) {
-            usersWorkingOnIt = val;
+        public Builder withComments(Set<Comment> val) {
+            comments = val;
             return this;
         }
 
-        public Project build() {
-            return new Project(this);
+        public Ticket build() {
+            return new Ticket(this);
         }
     }
 }

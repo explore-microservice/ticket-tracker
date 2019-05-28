@@ -1,4 +1,4 @@
-package com.issuetracker.webapp.dao;
+package com.issuetracker.webapp.repository;
 
 import com.issuetracker.webapp.pojo.User;
 import org.springframework.data.repository.CrudRepository;

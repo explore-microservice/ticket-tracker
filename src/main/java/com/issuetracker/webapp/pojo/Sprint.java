@@ -1,15 +1,11 @@
 package com.issuetracker.webapp.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
-@Entity
+@Entity(name = "it_sprint")
 public class Sprint {
 
     @Id
@@ -25,19 +21,24 @@ public class Sprint {
     private LocalDateTime startDate;
     @Column(name = "enddate")
     private LocalDateTime endDate;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "projectid")
     private Project project;
+    @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL)
+    private Set<Ticket> tickets;
 
     protected Sprint() {
     }
 
-    public Sprint(String name, String description, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime endDate, Project project) {
-        this.name = name;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.project = project;
+    private Sprint(Builder builder) {
+        id = builder.id;
+        name = builder.name;
+        description = builder.description;
+        creationDate = builder.creationDate;
+        startDate = builder.startDate;
+        endDate = builder.endDate;
+        project = builder.project;
+        tickets = builder.tickets;
     }
 
     public Long getId() {
@@ -68,6 +69,10 @@ public class Sprint {
         return project;
     }
 
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,7 +95,66 @@ public class Sprint {
                 ", creationDate=" + creationDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", projectId=" + project +
+                ", project=" + project +
+                ", tickets=" + tickets +
                 '}';
+    }
+
+    public static final class Builder {
+        private Long id;
+        private String name;
+        private String description;
+        private LocalDateTime creationDate;
+        private LocalDateTime startDate;
+        private LocalDateTime endDate;
+        private Project project;
+        private Set<Ticket> tickets;
+
+        public Builder() {
+        }
+
+        public Builder withId(Long val) {
+            id = val;
+            return this;
+        }
+
+        public Builder withName(String val) {
+            name = val;
+            return this;
+        }
+
+        public Builder withDescription(String val) {
+            description = val;
+            return this;
+        }
+
+        public Builder withCreationDate(LocalDateTime val) {
+            creationDate = val;
+            return this;
+        }
+
+        public Builder withStartDate(LocalDateTime val) {
+            startDate = val;
+            return this;
+        }
+
+        public Builder withEndDate(LocalDateTime val) {
+            endDate = val;
+            return this;
+        }
+
+        public Builder withProject(Project val) {
+            project = val;
+            return this;
+        }
+
+        public Builder withTickets(Set<Ticket> val) {
+            tickets = val;
+            return this;
+        }
+
+        public Sprint build() {
+            return new Sprint(this);
+        }
     }
 }

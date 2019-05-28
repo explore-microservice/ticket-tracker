@@ -2,7 +2,7 @@ package com.issuetracker.webapp.pojo;
 
 import org.springframework.http.HttpStatus;
 
-public  class Status {
+public class Status {
 
     private String message;
     private HttpStatus httpStatus;

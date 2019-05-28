@@ -1,12 +1,9 @@
 package com.issuetracker.webapp.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "it_user")
 public  class User {
@@ -26,18 +23,30 @@ public  class User {
     private String password;
     @Column(name = "lastloggedin")
     private LocalDateTime lastLoggedIn;
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+    private Set<Ticket> createdTickets;
+    @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL)
+    private Set<Ticket> assignedTickets;
+    @OneToMany(mappedBy = "author")
+    private Set<Comment> comments;
+    @OneToMany(mappedBy = "user")
+    private Set<Works> worksOnProjects;
 
     protected User() {
     }
 
-    public User(Long id, String firstName, String lastName, String username, String email, String password, LocalDateTime lastLoggedIn) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.lastLoggedIn = lastLoggedIn;
+    private User(Builder builder) {
+        id = builder.id;
+        firstName = builder.firstName;
+        lastName = builder.lastName;
+        username = builder.username;
+        email = builder.email;
+        password = builder.password;
+        lastLoggedIn = builder.lastLoggedIn;
+        createdTickets = builder.createdTickets;
+        assignedTickets = builder.assignedTickets;
+        comments = builder.comments;
+        worksOnProjects = builder.worksOnProjects;
     }
 
     public Long getId() {
@@ -68,23 +77,33 @@ public  class User {
         return lastLoggedIn;
     }
 
+    public Set<Ticket> getCreatedTickets() {
+        return createdTickets;
+    }
+
+    public Set<Ticket> getAssignedTickets() {
+        return assignedTickets;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public Set<Works> getWorksOnProjects() {
+        return worksOnProjects;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(lastLoggedIn, user.lastLoggedIn);
+        return Objects.equals(id, user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, username, email, password, lastLoggedIn);
+        return Objects.hash(id);
     }
 
     @Override
@@ -97,6 +116,86 @@ public  class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", lastLoggedIn=" + lastLoggedIn +
+                ", createdTickets=" + createdTickets +
+                ", assignedTickets=" + assignedTickets +
+                ", comments=" + comments +
+                ", worksOnProjects=" + worksOnProjects +
                 '}';
+    }
+
+    public static final class Builder {
+        private Long id;
+        private String firstName;
+        private String lastName;
+        private String username;
+        private String email;
+        private String password;
+        private LocalDateTime lastLoggedIn;
+        private Set<Ticket> createdTickets;
+        private Set<Ticket> assignedTickets;
+        private Set<Comment> comments;
+        private Set<Works> worksOnProjects;
+
+        public Builder() {
+        }
+
+        public Builder withId(Long val) {
+            id = val;
+            return this;
+        }
+
+        public Builder withFirstName(String val) {
+            firstName = val;
+            return this;
+        }
+
+        public Builder withLastName(String val) {
+            lastName = val;
+            return this;
+        }
+
+        public Builder withUsername(String val) {
+            username = val;
+            return this;
+        }
+
+        public Builder withEmail(String val) {
+            email = val;
+            return this;
+        }
+
+        public Builder withPassword(String val) {
+            password = val;
+            return this;
+        }
+
+        public Builder withLastLoggedIn(LocalDateTime val) {
+            lastLoggedIn = val;
+            return this;
+        }
+
+        public Builder withCreatedTickets(Set<Ticket> val) {
+            createdTickets = val;
+            return this;
+        }
+
+        public Builder withAssignedTickets(Set<Ticket> val) {
+            assignedTickets = val;
+            return this;
+        }
+
+        public Builder withComments(Set<Comment> val) {
+            comments = val;
+            return this;
+        }
+
+        public Builder withWorksOnProjects(Set<Works> val) {
+            worksOnProjects = val;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 }
