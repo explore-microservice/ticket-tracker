@@ -1,19 +1,16 @@
 package com.issuetracker.webapp.pojo;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-@Entity(name = "it_project")
-public  class Project {
+@Entity
+public class Sprint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,19 +25,19 @@ public  class Project {
     private LocalDateTime startDate;
     @Column(name = "enddate")
     private LocalDateTime endDate;
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private Set<Sprint> sprints;
+    @ManyToOne
+    private Project project;
 
-    protected Project() {
+    protected Sprint() {
     }
 
-    public Project(Long id, String name, String description, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime endDate) {
-        this.id = id;
+    public Sprint(String name, String description, LocalDateTime creationDate, LocalDateTime startDate, LocalDateTime endDate, Project project) {
         this.name = name;
         this.description = description;
         this.creationDate = creationDate;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.project = project;
     }
 
     public Long getId() {
@@ -67,33 +64,33 @@ public  class Project {
         return endDate;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Project project = (Project) o;
-        return Objects.equals(id, project.id) &&
-                Objects.equals(name, project.name) &&
-                Objects.equals(description, project.description) &&
-                Objects.equals(creationDate, project.creationDate) &&
-                Objects.equals(startDate, project.startDate) &&
-                Objects.equals(endDate, project.endDate);
+        Sprint sprint = (Sprint) o;
+        return Objects.equals(id, sprint.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, creationDate, startDate, endDate);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
-        return "Project{" +
+        return "Sprint{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", creationDate=" + creationDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", projectId=" + project +
                 '}';
     }
 }

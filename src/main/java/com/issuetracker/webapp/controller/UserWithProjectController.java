@@ -10,14 +10,14 @@ import java.util.Collection;
 
 @RestController
 public class UserWithProjectController {
-    private final UserWithProjectService userWithProjectService;
-
-    public UserWithProjectController(UserWithProjectService userWithProjectService) {
-        this.userWithProjectService = userWithProjectService;
-    }
-
-    @RequestMapping(value = "/userswithproject", method = RequestMethod.GET)
-    public Collection<UserWithProjects> getAllUsersWithProject(){
-        return userWithProjectService.getAllUsersWithProject();
-    }
+//    private final UserWithProjectService userWithProjectService;
+//
+//    public UserWithProjectController(UserWithProjectService userWithProjectService) {
+//        this.userWithProjectService = userWithProjectService;
+//    }
+//
+//    @RequestMapping(value = "/userswithproject", method = RequestMethod.GET)
+//    public Collection<UserWithProjects> getAllUsersWithProject(){
+//        return userWithProjectService.getAllUsersWithProject();
+//    }
 }

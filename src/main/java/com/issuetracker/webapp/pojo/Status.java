@@ -1,12 +1,26 @@
 package com.issuetracker.webapp.pojo;
 
-import lombok.Builder;
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 
-@Data
-@Builder
-public class Status {
+public  class Status {
+
     private String message;
     private HttpStatus httpStatus;
+
+    protected Status() {
+    }
+
+    public Status(String message, HttpStatus httpStatus) {
+        this.message = message;
+        this.httpStatus = httpStatus;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
 }

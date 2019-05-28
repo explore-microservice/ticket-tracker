@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProjectController {
 
-    private final ProjectService projectService;
-
-    public ProjectController(ProjectService projectService) {
-        this.projectService = projectService;
-    }
-
-    @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
-    public Project getProjectById(@PathVariable Long id) throws ProjectNotFoundException {
-        return projectService.getProjectById(id);
-    }
+//    private final ProjectService projectService;
+//
+//    public ProjectController(ProjectService projectService) {
+//        this.projectService = projectService;
+//    }
+//
+//    @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
+//    public Project getProjectById(@PathVariable Long id) throws ProjectNotFoundException {
+//        return projectService.getProjectById(id);
+//    }
 }

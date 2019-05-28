@@ -22,6 +22,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     public ResponseEntity<Status> handleProjectNotFoundException(Exception ex){
         logger.error(ex.getMessage(), ex);
         return new ResponseEntity<>(
-                Status.builder().message("Project not found").httpStatus(HttpStatus.NOT_FOUND).build(), new HttpHeaders(), HttpStatus.NOT_FOUND);
+                new Status("Project not found", HttpStatus.NOT_FOUND), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 }
