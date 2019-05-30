@@ -17,6 +17,10 @@ public class Ticket {
     private String description;
     @Column(name = "creationdate")
     private LocalDateTime creationDate;
+    @Column(name = "type")
+    private Type type;
+    @Column(name = "status")
+    private Status status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sprintid")
     private Sprint sprint;
@@ -37,6 +41,8 @@ public class Ticket {
         name = builder.name;
         description = builder.description;
         creationDate = builder.creationDate;
+        type = builder.type;
+        status = builder.status;
         sprint = builder.sprint;
         creator = builder.creator;
         assignee = builder.assignee;
@@ -75,6 +81,14 @@ public class Ticket {
         return comments;
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,6 +121,8 @@ public class Ticket {
         private String name;
         private String description;
         private LocalDateTime creationDate;
+        private Type type;
+        private Status status;
         private Sprint sprint;
         private User creator;
         private User assignee;
@@ -132,6 +148,16 @@ public class Ticket {
 
         public Builder withCreationDate(LocalDateTime val) {
             creationDate = val;
+            return this;
+        }
+
+        public Builder withType(Type val) {
+            type = val;
+            return this;
+        }
+
+        public Builder withStatus(Status val) {
+            status = val;
             return this;
         }
 
