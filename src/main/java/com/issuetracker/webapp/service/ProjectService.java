@@ -1,9 +1,9 @@
 package com.issuetracker.webapp.service;
 
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
-import com.issuetracker.webapp.pojo.Project;
+import com.issuetracker.webapp.service.dto.response.projectpage.ProjectResponse;
 
 public interface ProjectService {
 
-    Project getProjectById(Long id) throws ProjectNotFoundException;
+    ProjectResponse provideProjectPage(final Long id) throws ProjectNotFoundException;
 }
