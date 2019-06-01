@@ -2,7 +2,7 @@ package com.issuetracker.webapp.repository.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,11 +17,11 @@ public class Sprint {
     @Column(name = "description")
     private String description;
     @Column(name = "creationdate")
-    private OffsetDateTime creationDate;
+    private Instant creationDate;
     @Column(name = "startdate")
-    private OffsetDateTime startDate;
+    private Instant startDate;
     @Column(name = "enddate")
-    private OffsetDateTime endDate;
+    private Instant endDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "projectid")
     private Project project;
@@ -54,15 +54,15 @@ public class Sprint {
         return description;
     }
 
-    public OffsetDateTime getCreationDate() {
+    public Instant getCreationDate() {
         return creationDate;
     }
 
-    public OffsetDateTime getStartDate() {
+    public Instant getStartDate() {
         return startDate;
     }
 
-    public OffsetDateTime getEndDate() {
+    public Instant getEndDate() {
         return endDate;
     }
 
@@ -105,9 +105,9 @@ public class Sprint {
         private Long id;
         private String name;
         private String description;
-        private OffsetDateTime creationDate;
-        private OffsetDateTime startDate;
-        private OffsetDateTime endDate;
+        private Instant creationDate;
+        private Instant startDate;
+        private Instant endDate;
         private Project project;
         private Set<Ticket> tickets;
 
@@ -129,17 +129,17 @@ public class Sprint {
             return this;
         }
 
-        public Builder withCreationDate(OffsetDateTime val) {
+        public Builder withCreationDate(Instant val) {
             creationDate = val;
             return this;
         }
 
-        public Builder withStartDate(OffsetDateTime val) {
+        public Builder withStartDate(Instant val) {
             startDate = val;
             return this;
         }
 
-        public Builder withEndDate(OffsetDateTime val) {
+        public Builder withEndDate(Instant val) {
             endDate = val;
             return this;
         }

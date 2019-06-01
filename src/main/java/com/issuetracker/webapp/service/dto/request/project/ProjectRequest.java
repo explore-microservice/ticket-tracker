@@ -1,14 +1,14 @@
 package com.issuetracker.webapp.service.dto.request.project;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 public class ProjectRequest {
 
     private final String name;
     private final String description;
-    private final OffsetDateTime creationDate;
-    private final OffsetDateTime startDate;
-    private final OffsetDateTime endDate;
+    private final Instant creationDate;
+    private final Instant startDate;
+    private final Instant endDate;
 
     public String getName() {
         return name;
@@ -18,15 +18,15 @@ public class ProjectRequest {
         return description;
     }
 
-    public OffsetDateTime getCreationDate() {
+    public Instant getCreationDate() {
         return creationDate;
     }
 
-    public OffsetDateTime getStartDate() {
+    public Instant getStartDate() {
         return startDate;
     }
 
-    public OffsetDateTime getEndDate() {
+    public Instant getEndDate() {
         return endDate;
     }
 
@@ -42,9 +42,9 @@ public class ProjectRequest {
     public static final class Builder {
         private String name;
         private String description;
-        private OffsetDateTime creationDate;
-        private OffsetDateTime startDate;
-        private OffsetDateTime endDate;
+        private Instant creationDate;
+        private Instant startDate;
+        private Instant endDate;
 
         public Builder() {
         }
@@ -59,17 +59,17 @@ public class ProjectRequest {
             return this;
         }
 
-        public Builder withCreationDate(OffsetDateTime val) {
+        public Builder withCreationDate(Instant val) {
             creationDate = val;
             return this;
         }
 
-        public Builder withStartDate(OffsetDateTime val) {
+        public Builder withStartDate(Instant val) {
             startDate = val;
             return this;
         }
 
-        public Builder withEndDate(OffsetDateTime val) {
+        public Builder withEndDate(Instant val) {
             endDate = val;
             return this;
         }

@@ -2,7 +2,7 @@ package com.issuetracker.webapp.repository.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ public class Ticket {
     @Column(name = "description")
     private String description;
     @Column(name = "creationdate")
-    private OffsetDateTime creationDate;
+    private Instant creationDate;
     @Column(name = "type")
     private Type type;
     @Column(name = "status")
@@ -62,7 +62,7 @@ public class Ticket {
         return description;
     }
 
-    public OffsetDateTime getCreationDate() {
+    public Instant getCreationDate() {
         return creationDate;
     }
 
@@ -121,7 +121,7 @@ public class Ticket {
         private Long id;
         private String name;
         private String description;
-        private OffsetDateTime creationDate;
+        private Instant creationDate;
         private Type type;
         private Status status;
         private Sprint sprint;
@@ -147,7 +147,7 @@ public class Ticket {
             return this;
         }
 
-        public Builder withCreationDate(OffsetDateTime val) {
+        public Builder withCreationDate(Instant val) {
             creationDate = val;
             return this;
         }

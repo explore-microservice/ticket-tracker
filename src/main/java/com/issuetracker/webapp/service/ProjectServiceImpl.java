@@ -9,7 +9,7 @@ import com.issuetracker.webapp.service.dto.request.project.ProjectRequest;
 import com.issuetracker.webapp.service.dto.response.projectpage.ProjectResponse;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.*;
 
 @Service
@@ -40,7 +40,7 @@ public class ProjectServiceImpl implements ProjectService{
     @Override
     public ProjectResponse createProject(ProjectRequest projectRequest) {
         final Project projectInput = SProjectRequestConverter.convert(projectRequest);
-        projectInput.setCreationDate(OffsetDateTime.now());
+        projectInput.setCreationDate(Instant.now());
 
         final Project projectOutput = projectRepository.save(projectInput);
 

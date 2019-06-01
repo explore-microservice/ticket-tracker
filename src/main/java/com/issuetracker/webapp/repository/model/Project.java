@@ -2,7 +2,7 @@ package com.issuetracker.webapp.repository.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,11 +17,11 @@ public class Project {
     @Column(name = "description")
     private String description;
     @Column(name = "creationdate")
-    private OffsetDateTime creationDate;
+    private Instant creationDate;
     @Column(name = "startdate")
-    private OffsetDateTime startDate;
+    private Instant startDate;
     @Column(name = "enddate")
-    private OffsetDateTime endDate;
+    private Instant endDate;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private Set<Sprint> sprints;
     @OneToMany(mappedBy = "project")
@@ -53,15 +53,15 @@ public class Project {
         return description;
     }
 
-    public OffsetDateTime getCreationDate() {
+    public Instant getCreationDate() {
         return creationDate;
     }
 
-    public OffsetDateTime getStartDate() {
+    public Instant getStartDate() {
         return startDate;
     }
 
-    public OffsetDateTime getEndDate() {
+    public Instant getEndDate() {
         return endDate;
     }
 
@@ -81,15 +81,15 @@ public class Project {
         this.description = description;
     }
 
-    public void setCreationDate(OffsetDateTime creationDate) {
+    public void setCreationDate(Instant creationDate) {
         this.creationDate = creationDate;
     }
 
-    public void setStartDate(OffsetDateTime startDate) {
+    public void setStartDate(Instant startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(OffsetDateTime endDate) {
+    public void setEndDate(Instant endDate) {
         this.endDate = endDate;
     }
 
@@ -132,9 +132,9 @@ public class Project {
         private Long id;
         private String name;
         private String description;
-        private OffsetDateTime creationDate;
-        private OffsetDateTime startDate;
-        private OffsetDateTime endDate;
+        private Instant creationDate;
+        private Instant startDate;
+        private Instant endDate;
         private Set<Sprint> sprints;
         private Set<Works> usersWorkingOnIt;
 
@@ -156,17 +156,17 @@ public class Project {
             return this;
         }
 
-        public Builder withCreationDate(OffsetDateTime val) {
+        public Builder withCreationDate(Instant val) {
             creationDate = val;
             return this;
         }
 
-        public Builder withStartDate(OffsetDateTime val) {
+        public Builder withStartDate(Instant val) {
             startDate = val;
             return this;
         }
 
-        public Builder withEndDate(OffsetDateTime val) {
+        public Builder withEndDate(Instant val) {
             endDate = val;
             return this;
         }

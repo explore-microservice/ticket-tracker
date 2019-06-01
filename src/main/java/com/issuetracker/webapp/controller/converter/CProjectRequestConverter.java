@@ -3,7 +3,7 @@ package com.issuetracker.webapp.controller.converter;
 import com.issuetracker.webapp.service.dto.request.project.ProjectRequest;
 import org.springframework.stereotype.Component;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 @Component
 public class CProjectRequestConverter {
@@ -14,7 +14,7 @@ public class CProjectRequestConverter {
                 .withDescription(projectRequest.getDescription())
                 .withStartDate(projectRequest.getStartDate())
                 .withEndDate(projectRequest.getEndDate())
-                .withCreationDate(OffsetDateTime.now())
+                .withCreationDate(Instant.now())
                 .build();
     }
 }
