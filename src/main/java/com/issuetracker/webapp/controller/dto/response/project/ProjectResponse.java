@@ -1,15 +1,23 @@
 package com.issuetracker.webapp.controller.dto.response.project;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.time.Instant;
 import java.util.List;
 
 public class ProjectResponse {
 
+    @ApiModelProperty(notes = "The name of the project.", position = 0)
     private final String name;
+    @ApiModelProperty(notes = "The description of the project.", position = 1)
     private final String description;
+    @ApiModelProperty(notes = "The creation date of the project.", dataType = "integer", position = 2)
     private final Instant creationDate;
+    @ApiModelProperty(notes = "The start date of the project.", dataType = "integer", position = 3)
     private final Instant startDate;
+    @ApiModelProperty(notes = "The end date of the project.", dataType = "integer", position = 4)
     private final Instant endDate;
+    @ApiModelProperty(notes = "All the available sprints in the particular project.", dataType = "array", position = 5)
     private final List<Sprint> sprints;
 
     private ProjectResponse(Builder builder) {
