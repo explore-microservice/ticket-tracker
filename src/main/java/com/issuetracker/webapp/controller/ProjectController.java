@@ -5,7 +5,10 @@ import com.issuetracker.webapp.controller.converter.CProjectResponseConverter;
 import com.issuetracker.webapp.controller.dto.request.project.ProjectRequest;
 import com.issuetracker.webapp.controller.dto.response.project.ProjectResponse;
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
+import com.issuetracker.webapp.exceptions.dto.response.StatusResponse;
 import com.issuetracker.webapp.service.ProjectService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,11 +33,11 @@ public class ProjectController {
     }
 
     @PostMapping(value = "/projects")
-    public ProjectResponse createProject(@RequestBody final ProjectRequest payload){
+    public ResponseEntity<ProjectResponse> createProject(@RequestBody final ProjectRequest payload){
         final com.issuetracker.webapp.service.dto.request.project.ProjectRequest projectRequest = cProjectRequestConverter.convert(payload);
 
         final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse =  projectService.createProject(projectRequest);
-        return cProjectResponseConverter.convert(projectResponse);
+        return new ResponseEntity<>(cProjectResponseConverter.convert(projectResponse), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/projects")
@@ -43,5 +46,11 @@ public class ProjectController {
         final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse = projectService.updateProject(projectRequest);
 
         return cProjectResponseConverter.convert(projectResponse);
+    }
+
+    @DeleteMapping(value = "/projects/{id}")
+    public StatusResponse deleteProject(final @PathVariable Long id) {
+        projectService.deleteProject(id);
+        return new StatusResponse("The project has been successfully deleted", HttpStatus.OK);
     }
 }

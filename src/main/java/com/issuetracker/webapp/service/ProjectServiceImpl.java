@@ -7,6 +7,8 @@ import com.issuetracker.webapp.service.converter.SProjectRequestConverter;
 import com.issuetracker.webapp.service.converter.SProjectResponseConverter;
 import com.issuetracker.webapp.service.dto.request.project.ProjectRequest;
 import com.issuetracker.webapp.service.dto.response.project.ProjectResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -14,6 +16,8 @@ import java.util.*;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
+
+    private final Logger LOGGER = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
     private final ProjectRepository projectRepository;
     private final SProjectResponseConverter sProjectResponseConverter;
@@ -63,5 +67,10 @@ public class ProjectServiceImpl implements ProjectService{
 
         final ProjectResponse projectResponse = sProjectResponseConverter.convert(projectOutput);
         return projectResponse;
+    }
+
+    @Override
+    public void deleteProject(final Long id) {
+        projectRepository.deleteById(id);
     }
 }
