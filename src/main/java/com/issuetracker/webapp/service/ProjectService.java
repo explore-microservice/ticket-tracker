@@ -2,7 +2,7 @@ package com.issuetracker.webapp.service;
 
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.service.dto.request.project.ProjectRequest;
-import com.issuetracker.webapp.service.dto.response.projectpage.ProjectResponse;
+import com.issuetracker.webapp.service.dto.response.project.ProjectResponse;
 
 public interface ProjectService {
 

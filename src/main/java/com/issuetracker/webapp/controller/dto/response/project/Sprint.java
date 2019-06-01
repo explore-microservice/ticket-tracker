@@ -1,37 +1,19 @@
-package com.issuetracker.webapp.service.dto.response.projectpage;
+package com.issuetracker.webapp.controller.dto.response.project;
 
-import java.time.LocalDateTime;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
-public class ProjectResponse {
+public class Sprint {
 
     private final String name;
     private final String description;
-    private final Instant creationDate;
     private final Instant startDate;
     private final Instant endDate;
-    private final List<Sprint> sprints;
-
-    private ProjectResponse(Builder builder) {
-        name = builder.name;
-        description = builder.description;
-        creationDate = builder.creationDate;
-        startDate = builder.startDate;
-        endDate = builder.endDate;
-        sprints = builder.sprints;
-    }
+    private final Map<Status, List<Ticket>> tickets;
 
     public String getName() {
         return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Instant getCreationDate() {
-        return creationDate;
     }
 
     public Instant getStartDate() {
@@ -42,17 +24,29 @@ public class ProjectResponse {
         return endDate;
     }
 
-    public List<Sprint> getSprints() {
-        return sprints;
+    public Map<Status, List<Ticket>> getTickets() {
+        return tickets;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    private Sprint(Builder builder) {
+        name = builder.name;
+        description = builder.description;
+        startDate = builder.startDate;
+        endDate = builder.endDate;
+        tickets = builder.tickets;
+    }
+
 
     public static final class Builder {
         private String name;
         private String description;
-        private Instant creationDate;
         private Instant startDate;
         private Instant endDate;
-        private List<Sprint> sprints;
+        private Map<Status, List<Ticket>> tickets;
 
         public Builder() {
         }
@@ -67,11 +61,6 @@ public class ProjectResponse {
             return this;
         }
 
-        public Builder withCreationDate(Instant val) {
-            creationDate = val;
-            return this;
-        }
-
         public Builder withStartDate(Instant val) {
             startDate = val;
             return this;
@@ -82,13 +71,13 @@ public class ProjectResponse {
             return this;
         }
 
-        public Builder withSprints(List<Sprint> val) {
-            sprints = val;
+        public Builder withTickets(Map<Status, List<Ticket>> val) {
+            tickets = val;
             return this;
         }
 
-        public ProjectResponse build() {
-            return new ProjectResponse(this);
+        public Sprint build() {
+            return new Sprint(this);
         }
     }
 }

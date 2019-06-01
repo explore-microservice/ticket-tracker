@@ -1,4 +1,4 @@
-package com.issuetracker.webapp.controller.dto.response.projectpage;
+package com.issuetracker.webapp.controller.dto.response.project;
 
 public class Ticket {
 

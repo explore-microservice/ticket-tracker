@@ -6,7 +6,7 @@ import com.issuetracker.webapp.repository.ProjectRepository;
 import com.issuetracker.webapp.service.converter.SProjectRequestConverter;
 import com.issuetracker.webapp.service.converter.SProjectResponseConverter;
 import com.issuetracker.webapp.service.dto.request.project.ProjectRequest;
-import com.issuetracker.webapp.service.dto.response.projectpage.ProjectResponse;
+import com.issuetracker.webapp.service.dto.response.project.ProjectResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;

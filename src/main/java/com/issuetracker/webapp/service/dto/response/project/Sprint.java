@@ -1,6 +1,5 @@
-package com.issuetracker.webapp.service.dto.response.projectpage;
+package com.issuetracker.webapp.service.dto.response.project;
 
-import java.time.LocalDateTime;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
