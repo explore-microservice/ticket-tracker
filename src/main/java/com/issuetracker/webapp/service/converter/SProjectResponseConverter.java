@@ -8,10 +8,7 @@ import com.issuetracker.webapp.service.dto.response.projectpage.Ticket;
 import com.issuetracker.webapp.service.dto.response.projectpage.Type;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -46,7 +43,7 @@ public class SProjectResponseConverter {
                 .withCreationDate(project.getCreationDate())
                 .withStartDate(project.getStartDate())
                 .withEndDate(project.getEndDate())
-                .withSprints(sprintConverter(project.getSprints()))
+                .withSprints(sprintConverter(project.getSprints().orElse(Collections.emptySet())))
                 .build();
     }
 }

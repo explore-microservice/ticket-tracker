@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.Instant;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity(name = "it_project")
@@ -65,8 +66,8 @@ public class Project {
         return endDate;
     }
 
-    public Set<Sprint> getSprints() {
-        return sprints;
+    public Optional<Set<Sprint>> getSprints() {
+        return Optional.ofNullable(sprints);
     }
 
     public Set<Works> getUsersWorkingOnIt() {
