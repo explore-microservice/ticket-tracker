@@ -1,6 +1,7 @@
 package com.issuetracker.webapp.controller.dto.response.projectpage;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -8,19 +9,19 @@ public class Sprint {
 
     private final String name;
     private final String description;
-    private final LocalDateTime startDate;
-    private final LocalDateTime endDate;
+    private final OffsetDateTime startDate;
+    private final OffsetDateTime endDate;
     private final Map<Status, List<Ticket>> tickets;
 
     public String getName() {
         return name;
     }
 
-    public LocalDateTime getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public OffsetDateTime getEndDate() {
         return endDate;
     }
 
@@ -44,8 +45,8 @@ public class Sprint {
     public static final class Builder {
         private String name;
         private String description;
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
+        private OffsetDateTime startDate;
+        private OffsetDateTime endDate;
         private Map<Status, List<Ticket>> tickets;
 
         public Builder() {
@@ -61,12 +62,12 @@ public class Sprint {
             return this;
         }
 
-        public Builder withStartDate(LocalDateTime val) {
+        public Builder withStartDate(OffsetDateTime val) {
             startDate = val;
             return this;
         }
 
-        public Builder withEndDate(LocalDateTime val) {
+        public Builder withEndDate(OffsetDateTime val) {
             endDate = val;
             return this;
         }

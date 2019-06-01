@@ -1,15 +1,16 @@
 package com.issuetracker.webapp.service.dto.response.projectpage;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public class ProjectResponse {
 
     private final String name;
     private final String description;
-    private final LocalDateTime creationDate;
-    private final LocalDateTime startDate;
-    private final LocalDateTime endDate;
+    private final OffsetDateTime creationDate;
+    private final OffsetDateTime startDate;
+    private final OffsetDateTime endDate;
     private final List<Sprint> sprints;
 
     private ProjectResponse(Builder builder) {
@@ -29,15 +30,15 @@ public class ProjectResponse {
         return description;
     }
 
-    public LocalDateTime getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public LocalDateTime getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public OffsetDateTime getEndDate() {
         return endDate;
     }
 
@@ -48,9 +49,9 @@ public class ProjectResponse {
     public static final class Builder {
         private String name;
         private String description;
-        private LocalDateTime creationDate;
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
+        private OffsetDateTime creationDate;
+        private OffsetDateTime startDate;
+        private OffsetDateTime endDate;
         private List<Sprint> sprints;
 
         public Builder() {
@@ -66,17 +67,17 @@ public class ProjectResponse {
             return this;
         }
 
-        public Builder withCreationDate(LocalDateTime val) {
+        public Builder withCreationDate(OffsetDateTime val) {
             creationDate = val;
             return this;
         }
 
-        public Builder withStartDate(LocalDateTime val) {
+        public Builder withStartDate(OffsetDateTime val) {
             startDate = val;
             return this;
         }
 
-        public Builder withEndDate(LocalDateTime val) {
+        public Builder withEndDate(OffsetDateTime val) {
             endDate = val;
             return this;
         }
