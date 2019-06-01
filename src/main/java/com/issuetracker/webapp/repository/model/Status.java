@@ -1,4 +1,4 @@
-package com.issuetracker.webapp.pojo;
+package com.issuetracker.webapp.repository.model;
 
 public enum Status {
 

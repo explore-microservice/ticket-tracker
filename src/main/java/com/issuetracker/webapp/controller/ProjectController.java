@@ -3,7 +3,6 @@ package com.issuetracker.webapp.controller;
 import com.issuetracker.webapp.controller.converter.response.projectpage.ProjectResponseConverter;
 import com.issuetracker.webapp.controller.dto.response.projectpage.ProjectResponse;
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
-import com.issuetracker.webapp.pojo.Project;
 import com.issuetracker.webapp.service.ProjectService;
 import org.springframework.web.bind.annotation.*;
 

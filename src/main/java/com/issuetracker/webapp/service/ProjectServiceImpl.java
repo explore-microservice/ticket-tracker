@@ -1,9 +1,9 @@
 package com.issuetracker.webapp.service;
 
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
-import com.issuetracker.webapp.pojo.Project;
-import com.issuetracker.webapp.pojo.Sprint;
-import com.issuetracker.webapp.pojo.Ticket;
+import com.issuetracker.webapp.repository.model.Project;
+import com.issuetracker.webapp.repository.model.Sprint;
+import com.issuetracker.webapp.repository.model.Ticket;
 import com.issuetracker.webapp.repository.ProjectRepository;
 import com.issuetracker.webapp.service.dto.response.projectpage.ProjectResponse;
 import com.issuetracker.webapp.service.dto.response.projectpage.Status;

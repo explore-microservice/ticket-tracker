@@ -1,12 +1,12 @@
-package com.issuetracker.webapp.pojo;
+package com.issuetracker.webapp.repository.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity(name = "it_project")
-public class Project {
+@Entity(name = "it_sprint")
+public class Sprint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,23 +21,24 @@ public class Project {
     private LocalDateTime startDate;
     @Column(name = "enddate")
     private LocalDateTime endDate;
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private Set<Sprint> sprints;
-    @OneToMany(mappedBy = "project")
-    private Set<Works> usersWorkingOnIt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "projectid")
+    private Project project;
+    @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL)
+    private Set<Ticket> tickets;
 
-    protected Project() {
+    protected Sprint() {
     }
 
-    private Project(Builder builder) {
+    private Sprint(Builder builder) {
         id = builder.id;
         name = builder.name;
         description = builder.description;
         creationDate = builder.creationDate;
         startDate = builder.startDate;
         endDate = builder.endDate;
-        sprints = builder.sprints;
-        usersWorkingOnIt = builder.usersWorkingOnIt;
+        project = builder.project;
+        tickets = builder.tickets;
     }
 
     public Long getId() {
@@ -64,20 +65,20 @@ public class Project {
         return endDate;
     }
 
-    public Set<Sprint> getSprints() {
-        return sprints;
+    public Project getProject() {
+        return project;
     }
 
-    public Set<Works> getUsersWorkingOnIt() {
-        return usersWorkingOnIt;
+    public Set<Ticket> getTickets() {
+        return tickets;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Project project = (Project) o;
-        return Objects.equals(id, project.id);
+        Sprint sprint = (Sprint) o;
+        return Objects.equals(id, sprint.id);
     }
 
     @Override
@@ -87,15 +88,15 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" +
+        return "Sprint{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", creationDate=" + creationDate +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", sprints=" + sprints +
-                ", usersWorkingOnIt=" + usersWorkingOnIt +
+                ", project=" + project +
+                ", tickets=" + tickets +
                 '}';
     }
 
@@ -106,8 +107,8 @@ public class Project {
         private LocalDateTime creationDate;
         private LocalDateTime startDate;
         private LocalDateTime endDate;
-        private Set<Sprint> sprints;
-        private Set<Works> usersWorkingOnIt;
+        private Project project;
+        private Set<Ticket> tickets;
 
         public Builder() {
         }
@@ -142,18 +143,18 @@ public class Project {
             return this;
         }
 
-        public Builder withSprints(Set<Sprint> val) {
-            sprints = val;
+        public Builder withProject(Project val) {
+            project = val;
             return this;
         }
 
-        public Builder withUsersWorkingOnIt(Set<Works> val) {
-            usersWorkingOnIt = val;
+        public Builder withTickets(Set<Ticket> val) {
+            tickets = val;
             return this;
         }
 
-        public Project build() {
-            return new Project(this);
+        public Sprint build() {
+            return new Sprint(this);
         }
     }
 }

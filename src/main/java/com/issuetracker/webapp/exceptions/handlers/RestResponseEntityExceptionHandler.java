@@ -1,5 +1,6 @@
-package com.issuetracker.webapp.exceptionhandlers;
+package com.issuetracker.webapp.exceptions.handlers;
 
+import com.issuetracker.webapp.exceptions.dto.response.StatusResponse;
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +19,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ProjectNotFoundException.class)
-    public ResponseEntity<Status> handleProjectNotFoundException(Exception ex){
+    public ResponseEntity<StatusResponse> handleProjectNotFoundException(Exception ex){
         logger.error(ex.getMessage(), ex);
         return new ResponseEntity<>(
-                new Status("Project not found", HttpStatus.NOT_FOUND), new HttpHeaders(), HttpStatus.NOT_FOUND);
+                new StatusResponse("Project not found", HttpStatus.NOT_FOUND), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 }
