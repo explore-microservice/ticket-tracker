@@ -16,35 +16,52 @@ import java.util.*;
 public class ProjectServiceImpl implements ProjectService{
 
     private final ProjectRepository projectRepository;
-    private final SProjectResponseConverter SProjectResponseConverter;
-    private final SProjectRequestConverter SProjectRequestConverter;
+    private final SProjectResponseConverter sProjectResponseConverter;
+    private final SProjectRequestConverter sProjectRequestConverter;
 
     public ProjectServiceImpl(
             final ProjectRepository projectRepository,
-            final SProjectResponseConverter SProjectResponseConverter,
-            final SProjectRequestConverter SProjectRequestConverter) {
+            final SProjectResponseConverter sProjectResponseConverter,
+            final SProjectRequestConverter sProjectRequestConverter) {
         this.projectRepository = projectRepository;
-        this.SProjectResponseConverter = SProjectResponseConverter;
-        this.SProjectRequestConverter = SProjectRequestConverter;
+        this.sProjectResponseConverter = sProjectResponseConverter;
+        this.sProjectRequestConverter = sProjectRequestConverter;
     }
 
     @Override
     public ProjectResponse provideProjectPage(final Long id) throws ProjectNotFoundException {
         final Optional<Project> optionalProject = projectRepository.findById(id);
-        optionalProject.orElseThrow(() -> new ProjectNotFoundException("Project with id: " + id + " is not found"));
+        final Project project = optionalProject.orElseThrow(() -> new ProjectNotFoundException("Project with id: " + id + " is not found"));
 
-        final ProjectResponse projectResponse = SProjectResponseConverter.convert(optionalProject.get());
+        final ProjectResponse projectResponse = sProjectResponseConverter.convert(project);
         return projectResponse;
     }
 
     @Override
-    public ProjectResponse createProject(ProjectRequest projectRequest) {
-        final Project projectInput = SProjectRequestConverter.convert(projectRequest);
+    public ProjectResponse createProject(final ProjectRequest projectRequest) {
+        final Project projectInput = sProjectRequestConverter.convert(projectRequest);
         projectInput.setCreationDate(Instant.now());
 
         final Project projectOutput = projectRepository.save(projectInput);
 
-        final ProjectResponse projectResponse = SProjectResponseConverter.convert(projectOutput);
+        final ProjectResponse projectResponse = sProjectResponseConverter.convert(projectOutput);
+        return projectResponse;
+    }
+
+    @Override
+    public ProjectResponse updateProject(final ProjectRequest projectRequest) throws ProjectNotFoundException{
+        final Optional<Project> optionalProject = projectRepository.findById(projectRequest.getId());
+
+        final Project project = optionalProject.orElseThrow(() -> new ProjectNotFoundException("Project with id " + projectRequest.getId() + " doesn't exists."));
+
+        projectRequest.getName().ifPresent(project::setName);
+        projectRequest.getDescription().ifPresent(project::setDescription);
+        projectRequest.getStartDate().ifPresent(project::setStartDate);
+        projectRequest.getEndDate().ifPresent(project::setEndDate);
+
+        final Project projectOutput = projectRepository.save(project);
+
+        final ProjectResponse projectResponse = sProjectResponseConverter.convert(projectOutput);
         return projectResponse;
     }
 }

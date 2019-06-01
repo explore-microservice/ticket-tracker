@@ -1,36 +1,43 @@
 package com.issuetracker.webapp.service.dto.request.project;
 
 import java.time.Instant;
+import java.util.Optional;
 
 public class ProjectRequest {
 
+    private final Long id;
     private final String name;
     private final String description;
     private final Instant creationDate;
     private final Instant startDate;
     private final Instant endDate;
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public String getDescription() {
-        return description;
+    public Optional<String> getName() {
+        return Optional.ofNullable(name);
     }
 
-    public Instant getCreationDate() {
-        return creationDate;
+    public Optional<String> getDescription() {
+        return Optional.ofNullable(description);
     }
 
-    public Instant getStartDate() {
-        return startDate;
+    public Optional<Instant> getCreationDate() {
+        return Optional.ofNullable(creationDate);
     }
 
-    public Instant getEndDate() {
-        return endDate;
+    public Optional<Instant> getStartDate() {
+        return Optional.ofNullable(startDate);
+    }
+
+    public Optional<Instant> getEndDate() {
+        return Optional.ofNullable(endDate);
     }
 
     private ProjectRequest(Builder builder) {
+        id = builder.id;
         name = builder.name;
         description = builder.description;
         creationDate = builder.creationDate;
@@ -45,6 +52,7 @@ public class ProjectRequest {
         private Instant creationDate;
         private Instant startDate;
         private Instant endDate;
+        private Long id;
 
         public Builder() {
         }
@@ -76,6 +84,11 @@ public class ProjectRequest {
 
         public ProjectRequest build() {
             return new ProjectRequest(this);
+        }
+
+        public Builder withId(Long val) {
+            id = val;
+            return this;
         }
     }
 }

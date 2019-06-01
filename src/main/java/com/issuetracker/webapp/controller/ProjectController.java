@@ -12,28 +12,36 @@ import org.springframework.web.bind.annotation.*;
 public class ProjectController {
 
     private final ProjectService projectService;
-    private final CProjectResponseConverter CProjectResponseConverter;
-    private final CProjectRequestConverter CProjectRequestConverter;
+    private final CProjectResponseConverter cProjectResponseConverter;
+    private final CProjectRequestConverter cProjectRequestConverter;
 
     public ProjectController(final ProjectService projectService,
-                             final CProjectResponseConverter CProjectResponseConverter,
-                             final CProjectRequestConverter CProjectRequestConverter) {
+                             final CProjectResponseConverter cProjectResponseConverter,
+                             final CProjectRequestConverter cProjectRequestConverter) {
         this.projectService = projectService;
-        this.CProjectResponseConverter = CProjectResponseConverter;
-        this.CProjectRequestConverter = CProjectRequestConverter;
+        this.cProjectResponseConverter = cProjectResponseConverter;
+        this.cProjectRequestConverter = cProjectRequestConverter;
     }
 
     @GetMapping(value = "/projects/{id}")
     public ProjectResponse projectPage(final @PathVariable Long id) throws ProjectNotFoundException {
         final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse = projectService.provideProjectPage(id);
-        return CProjectResponseConverter.convert(projectResponse);
+        return cProjectResponseConverter.convert(projectResponse);
     }
 
     @PostMapping(value = "/projects")
     public ProjectResponse createProject(@RequestBody final ProjectRequest payload){
-        final com.issuetracker.webapp.service.dto.request.project.ProjectRequest projectRequest = CProjectRequestConverter.convert(payload);
+        final com.issuetracker.webapp.service.dto.request.project.ProjectRequest projectRequest = cProjectRequestConverter.convert(payload);
 
         final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse =  projectService.createProject(projectRequest);
-        return CProjectResponseConverter.convert(projectResponse);
+        return cProjectResponseConverter.convert(projectResponse);
+    }
+
+    @PutMapping(value = "/projects")
+    public ProjectResponse updateProject(@RequestBody final ProjectRequest payload) throws ProjectNotFoundException{
+        final com.issuetracker.webapp.service.dto.request.project.ProjectRequest projectRequest = cProjectRequestConverter.convert(payload);
+        final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse = projectService.updateProject(projectRequest);
+
+        return cProjectResponseConverter.convert(projectResponse);
     }
 }
