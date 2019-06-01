@@ -1,4 +1,4 @@
-package com.issuetracker.webapp.controller.converter.response.projectpage;
+package com.issuetracker.webapp.controller.converter;
 
 import com.issuetracker.webapp.controller.dto.response.projectpage.*;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
-public class ProjectResponseConverter {
+public class CProjectResponseConverter {
 
     public ProjectResponse convert(com.issuetracker.webapp.service.dto.response.projectpage.ProjectResponse projectResponse){
         return new ProjectResponse.Builder()

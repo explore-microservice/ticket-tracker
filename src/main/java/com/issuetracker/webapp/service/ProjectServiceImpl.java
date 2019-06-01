@@ -2,24 +2,30 @@ package com.issuetracker.webapp.service;
 
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.repository.model.Project;
-import com.issuetracker.webapp.repository.model.Sprint;
-import com.issuetracker.webapp.repository.model.Ticket;
 import com.issuetracker.webapp.repository.ProjectRepository;
+import com.issuetracker.webapp.service.converter.SProjectRequestConverter;
+import com.issuetracker.webapp.service.converter.SProjectResponseConverter;
+import com.issuetracker.webapp.service.dto.request.project.ProjectRequest;
 import com.issuetracker.webapp.service.dto.response.projectpage.ProjectResponse;
-import com.issuetracker.webapp.service.dto.response.projectpage.Status;
-import com.issuetracker.webapp.service.dto.response.projectpage.Type;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
 
     private final ProjectRepository projectRepository;
+    private final SProjectResponseConverter SProjectResponseConverter;
+    private final SProjectRequestConverter SProjectRequestConverter;
 
-    public ProjectServiceImpl(final ProjectRepository projectRepository) {
+    public ProjectServiceImpl(
+            final ProjectRepository projectRepository,
+            final SProjectResponseConverter SProjectResponseConverter,
+            final SProjectRequestConverter SProjectRequestConverter) {
         this.projectRepository = projectRepository;
+        this.SProjectResponseConverter = SProjectResponseConverter;
+        this.SProjectRequestConverter = SProjectRequestConverter;
     }
 
     @Override
@@ -27,40 +33,18 @@ public class ProjectServiceImpl implements ProjectService{
         final Optional<Project> optionalProject = projectRepository.findById(id);
         optionalProject.orElseThrow(() -> new ProjectNotFoundException("Project with id: " + id + " is not found"));
 
-        final ProjectResponse projectResponse = convertRepositoryToServiceLayer(optionalProject.get());
+        final ProjectResponse projectResponse = SProjectResponseConverter.convert(optionalProject.get());
         return projectResponse;
     }
 
-    private Map<Status, List<com.issuetracker.webapp.service.dto.response.projectpage.Ticket>> ticketConverter(final Set<Ticket> tickets){
-        return tickets.stream().map(ticket -> new com.issuetracker.webapp.service.dto.response.projectpage.Ticket.Builder()
-                .withName(ticket.getName())
-                .withDescription(ticket.getDescription())
-                .withType(Type.valueOf(ticket.getType().name()))
-                .withStatus(Status.valueOf(ticket.getStatus().name()))
-                .withAssignee(ticket.getAssignee().getUsername())
-                .build())
-            .collect(Collectors.groupingBy(com.issuetracker.webapp.service.dto.response.projectpage.Ticket::getStatus, HashMap::new, Collectors.toUnmodifiableList()));
-    }
+    @Override
+    public ProjectResponse createProject(ProjectRequest projectRequest) {
+        final Project projectInput = SProjectRequestConverter.convert(projectRequest);
+        projectInput.setCreationDate(OffsetDateTime.now());
 
-    private List<com.issuetracker.webapp.service.dto.response.projectpage.Sprint> sprintConverter(final Set<Sprint> sprints){
-        return sprints.stream().map(sprint -> new com.issuetracker.webapp.service.dto.response.projectpage.Sprint.Builder()
-                .withName(sprint.getName())
-                .withDescription(sprint.getDescription())
-                .withStartDate(sprint.getStartDate())
-                .withEndDate(sprint.getEndDate())
-                .withTickets(ticketConverter(sprint.getTickets()))
-                .build())
-            .collect(Collectors.toList());
-    }
+        final Project projectOutput = projectRepository.save(projectInput);
 
-    private ProjectResponse convertRepositoryToServiceLayer(final Project project){
-        return new ProjectResponse.Builder()
-                .withName(project.getName())
-                .withDescription(project.getDescription())
-                .withCreationDate(project.getCreationDate())
-                .withStartDate(project.getStartDate())
-                .withEndDate(project.getEndDate())
-                .withSprints(sprintConverter(project.getSprints()))
-                .build();
+        final ProjectResponse projectResponse = SProjectResponseConverter.convert(projectOutput);
+        return projectResponse;
     }
 }

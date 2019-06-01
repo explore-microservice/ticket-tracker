@@ -73,6 +73,34 @@ public class Project {
         return usersWorkingOnIt;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCreationDate(OffsetDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setStartDate(OffsetDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(OffsetDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setSprints(Set<Sprint> sprints) {
+        this.sprints = sprints;
+    }
+
+    public void setUsersWorkingOnIt(Set<Works> usersWorkingOnIt) {
+        this.usersWorkingOnIt = usersWorkingOnIt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
