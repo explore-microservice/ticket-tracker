@@ -42,8 +42,10 @@ public class ProjectController {
 
     @PutMapping(value = "/projects")
     public ProjectResponse updateProject(@RequestBody final ProjectRequest payload) throws ProjectNotFoundException{
+    @PutMapping(value = "/projects/{id}", produces = "application/json")
+    public ProjectResponse updateProject(@PathVariable final Long id, @RequestBody final ProjectRequest payload) throws ProjectNotFoundException{
         final com.issuetracker.webapp.service.dto.request.project.ProjectRequest projectRequest = cProjectRequestConverter.convert(payload);
-        final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse = projectService.updateProject(projectRequest);
+        final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse = projectService.updateProject(id, projectRequest);
 
         return cProjectResponseConverter.convert(projectResponse);
     }

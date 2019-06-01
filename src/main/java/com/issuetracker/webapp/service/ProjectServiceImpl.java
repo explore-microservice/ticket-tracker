@@ -53,10 +53,10 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     @Override
-    public ProjectResponse updateProject(final ProjectRequest projectRequest) throws ProjectNotFoundException{
-        final Optional<Project> optionalProject = projectRepository.findById(projectRequest.getId());
+    public ProjectResponse updateProject(final Long id, final ProjectRequest projectRequest) throws ProjectNotFoundException{
+        final Optional<Project> optionalProject = projectRepository.findById(id);
 
-        final Project project = optionalProject.orElseThrow(() -> new ProjectNotFoundException("Project with id " + projectRequest.getId() + " doesn't exists."));
+        final Project project = optionalProject.orElseThrow(() -> new ProjectNotFoundException("Project with id " + id + " doesn't exists."));
 
         projectRequest.getName().ifPresent(project::setName);
         projectRequest.getDescription().ifPresent(project::setDescription);

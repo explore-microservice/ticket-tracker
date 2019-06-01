@@ -8,7 +8,7 @@ public interface ProjectService {
 
     ProjectResponse provideProjectPage(final Long id) throws ProjectNotFoundException;
     ProjectResponse createProject(final ProjectRequest projectRequest);
-    ProjectResponse updateProject(final ProjectRequest projectRequest) throws ProjectNotFoundException;
+    ProjectResponse updateProject(final Long id, final ProjectRequest projectRequest) throws ProjectNotFoundException;
 
-    void deleteProject(Long id);
+    void deleteProject(final Long id);
 }
