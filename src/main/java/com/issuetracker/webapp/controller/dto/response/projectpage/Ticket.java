@@ -5,6 +5,7 @@ public class Ticket {
     private final String name;
     private final String description;
     private final Type type;
+    private final Status status;
     private final String assignee;
 
     public String getName() {
@@ -23,10 +24,15 @@ public class Ticket {
         return assignee;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     private Ticket(Builder builder) {
         name = builder.name;
         description = builder.description;
         type = builder.type;
+        status = builder.status;
         assignee = builder.assignee;
     }
 
@@ -35,6 +41,7 @@ public class Ticket {
         private String name;
         private String description;
         private Type type;
+        private Status status;
         private String assignee;
 
         public Builder() {
@@ -52,6 +59,11 @@ public class Ticket {
 
         public Builder withType(Type val) {
             type = val;
+            return this;
+        }
+
+        public Builder withStatus(Status val) {
+            status = val;
             return this;
         }
 

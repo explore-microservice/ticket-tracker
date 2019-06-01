@@ -36,6 +36,7 @@ public class ProjectServiceImpl implements ProjectService{
                 .withName(ticket.getName())
                 .withDescription(ticket.getDescription())
                 .withType(Type.valueOf(ticket.getType().name()))
+                .withStatus(Status.valueOf(ticket.getStatus().name()))
                 .withAssignee(ticket.getAssignee().getUsername())
                 .build())
             .collect(Collectors.groupingBy(com.issuetracker.webapp.service.dto.response.projectpage.Ticket::getStatus, HashMap::new, Collectors.toUnmodifiableList()));
