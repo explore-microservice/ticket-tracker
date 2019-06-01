@@ -2,6 +2,7 @@ package com.issuetracker.webapp.repository.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,11 +17,11 @@ public class Sprint {
     @Column(name = "description")
     private String description;
     @Column(name = "creationdate")
-    private LocalDateTime creationDate;
+    private OffsetDateTime creationDate;
     @Column(name = "startdate")
-    private LocalDateTime startDate;
+    private OffsetDateTime startDate;
     @Column(name = "enddate")
-    private LocalDateTime endDate;
+    private OffsetDateTime endDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "projectid")
     private Project project;
@@ -53,15 +54,15 @@ public class Sprint {
         return description;
     }
 
-    public LocalDateTime getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
-    public LocalDateTime getStartDate() {
+    public OffsetDateTime getStartDate() {
         return startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public OffsetDateTime getEndDate() {
         return endDate;
     }
 
@@ -104,9 +105,9 @@ public class Sprint {
         private Long id;
         private String name;
         private String description;
-        private LocalDateTime creationDate;
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
+        private OffsetDateTime creationDate;
+        private OffsetDateTime startDate;
+        private OffsetDateTime endDate;
         private Project project;
         private Set<Ticket> tickets;
 
@@ -128,17 +129,17 @@ public class Sprint {
             return this;
         }
 
-        public Builder withCreationDate(LocalDateTime val) {
+        public Builder withCreationDate(OffsetDateTime val) {
             creationDate = val;
             return this;
         }
 
-        public Builder withStartDate(LocalDateTime val) {
+        public Builder withStartDate(OffsetDateTime val) {
             startDate = val;
             return this;
         }
 
-        public Builder withEndDate(LocalDateTime val) {
+        public Builder withEndDate(OffsetDateTime val) {
             endDate = val;
             return this;
         }

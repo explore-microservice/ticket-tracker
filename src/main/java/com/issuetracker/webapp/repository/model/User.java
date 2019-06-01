@@ -2,6 +2,7 @@ package com.issuetracker.webapp.repository.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public  class User {
     @Column(name = "password")
     private String password;
     @Column(name = "lastloggedin")
-    private LocalDateTime lastLoggedIn;
+    private OffsetDateTime lastLoggedIn;
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     private Set<Ticket> createdTickets;
     @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL)
@@ -73,7 +74,7 @@ public  class User {
         return password;
     }
 
-    public LocalDateTime getLastLoggedIn() {
+    public OffsetDateTime getLastLoggedIn() {
         return lastLoggedIn;
     }
 
@@ -130,7 +131,7 @@ public  class User {
         private String username;
         private String email;
         private String password;
-        private LocalDateTime lastLoggedIn;
+        private OffsetDateTime lastLoggedIn;
         private Set<Ticket> createdTickets;
         private Set<Ticket> assignedTickets;
         private Set<Comment> comments;
@@ -169,7 +170,7 @@ public  class User {
             return this;
         }
 
-        public Builder withLastLoggedIn(LocalDateTime val) {
+        public Builder withLastLoggedIn(OffsetDateTime val) {
             lastLoggedIn = val;
             return this;
         }

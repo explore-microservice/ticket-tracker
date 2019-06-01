@@ -2,6 +2,7 @@ package com.issuetracker.webapp.repository.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Entity(name = "it_comment")
@@ -13,7 +14,7 @@ public class Comment {
     @Column(name = "content")
     private String content;
     @Column(name = "creationdate")
-    private LocalDateTime creationDate;
+    private OffsetDateTime creationDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
     private User author;
@@ -24,7 +25,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String content, LocalDateTime creationDate, User author, Ticket ticket) {
+    public Comment(final String content, final OffsetDateTime creationDate, final User author, final Ticket ticket) {
         this.content = content;
         this.creationDate = creationDate;
         this.author = author;
@@ -39,7 +40,7 @@ public class Comment {
         return content;
     }
 
-    public LocalDateTime getCreationDate() {
+    public OffsetDateTime getCreationDate() {
         return creationDate;
     }
 
