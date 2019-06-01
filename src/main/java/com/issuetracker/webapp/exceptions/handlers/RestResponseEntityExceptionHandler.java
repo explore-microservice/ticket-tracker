@@ -1,5 +1,6 @@
 package com.issuetracker.webapp.exceptions.handlers;
 
+import com.issuetracker.webapp.exceptions.TicketStatusCannotBeEmptyException;
 import com.issuetracker.webapp.exceptions.dto.response.StatusResponse;
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import org.slf4j.Logger;
@@ -23,5 +24,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         logger.error(ex.getMessage(), ex);
         return new ResponseEntity<>(
                 new StatusResponse("Project not found", HttpStatus.NOT_FOUND), new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(TicketStatusCannotBeEmptyException.class)
+    public StatusResponse handleTicketStatusCannotBeEmptyException(Exception ex){
+        logger.error(ex.getMessage(), ex);
+        return new StatusResponse("Status field of ticket cannot be empty", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

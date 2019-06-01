@@ -8,8 +8,8 @@ INSERT INTO it_sprint(id, name, description, creationdate, startdate, enddate, p
 INSERT INTO it_sprint(id, name, description, creationdate, startdate, enddate, projectid) VALUES (2, 'Backlog', 'Just a sample backlog for a project Modello', '2018-07-23', null, null, 2);
 INSERT INTO it_sprint(id, name, description, creationdate, startdate, enddate, projectid) VALUES (3, 'Eternity Sprint 1', 'May god be with us', '2018-07-23', null, null, 1);
 INSERT INTO it_sprint(id, name, description, creationdate, startdate, enddate, projectid) VALUES (4, 'Modello Sprint 1', 'Make our PM happy again ', '2018-07-23', null, null, 2);
-INSERT INTO it_ticket(id, name, description, creationdate, type, status, sprintid, creatoruserid, assigneeuserid) VALUES (1, 'ETE-1', 'This is our first issue', '2018-07-23', 'STORY', 'TODO',1, 1, 3);
-INSERT INTO it_ticket(id, name, description, creationdate, type, status, sprintid, creatoruserid, assigneeuserid) VALUES (2, 'MOD-1', 'We have a bug on landing page', '2018-07-23', 'BUG', 'TODO', 2, 1, 2);
+INSERT INTO it_ticket(id, name, description, creationdate, type, status, sprintid, creatoruserid, assigneeuserid) VALUES (1, 'ETE-1', 'This is our first issue', '2018-07-23', 'story', 'todo',1, 1, 3);
+INSERT INTO it_ticket(id, name, description, creationdate, type, status, sprintid, creatoruserid, assigneeuserid) VALUES (2, 'MOD-1', 'We have a bug on landing page', '2018-07-23', 'bug', 'todo', 2, 1, 2);
 INSERT INTO it_works(id, userid, projectid) VALUES (1, 1, 1);
 INSERT INTO it_works(id, userid, projectid) VALUES (2, 1, 2);
 INSERT INTO it_works(id, userid, projectid) VALUES (3, 2, 2);

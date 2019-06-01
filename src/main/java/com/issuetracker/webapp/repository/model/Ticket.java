@@ -18,10 +18,8 @@ public class Ticket {
     @Column(name = "creationdate")
     private LocalDateTime creationDate;
     @Column(name = "type")
-    @Enumerated(EnumType.STRING)
     private Type type;
     @Column(name = "status")
-    @Enumerated(EnumType.STRING)
     private Status status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sprintid")
