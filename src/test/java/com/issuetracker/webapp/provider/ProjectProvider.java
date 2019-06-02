@@ -15,7 +15,7 @@ public class ProjectProvider {
     public static Instant endDate = Instant.MAX;
 
     public static Project emptyRepositoryProject(){
-        return new Project.Builder().withId(id).build();
+        return new Project.Builder().withName("something").withCreationDate(Instant.now()).build();
     }
 
     public static ProjectResponse emptyServiceProjectResponse(){
