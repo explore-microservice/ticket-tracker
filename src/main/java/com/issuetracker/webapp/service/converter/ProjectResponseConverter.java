@@ -6,13 +6,14 @@ import com.issuetracker.webapp.service.dto.response.project.ProjectResponse;
 import com.issuetracker.webapp.service.dto.response.project.Status;
 import com.issuetracker.webapp.service.dto.response.project.Ticket;
 import com.issuetracker.webapp.service.dto.response.project.Type;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
-public class SProjectResponseConverter {
+@Component("serviceProjectResponseConverter")
+public class ProjectResponseConverter {
 
     private Map<Status, List<Ticket>> ticketConverter(final Set<com.issuetracker.webapp.repository.model.Ticket> tickets){
         return tickets.stream().map(ticket -> new com.issuetracker.webapp.service.dto.response.project.Ticket.Builder()

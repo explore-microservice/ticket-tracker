@@ -1,14 +1,15 @@
 package com.issuetracker.webapp.controller.converter;
 
 import com.issuetracker.webapp.controller.dto.response.project.*;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
-public class CProjectResponseConverter {
+@Component("controllerProjectResponseConverter")
+public class ProjectResponseConverter {
 
     public ProjectResponse convert(com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse){
         return new ProjectResponse.Builder()

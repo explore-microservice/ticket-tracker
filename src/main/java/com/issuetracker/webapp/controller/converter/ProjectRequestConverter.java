@@ -1,12 +1,13 @@
 package com.issuetracker.webapp.controller.converter;
 
 import com.issuetracker.webapp.service.dto.request.project.ProjectRequest;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
-@Component
-public class CProjectRequestConverter {
+@Component("controllerProjectRequestConverter")
+public class ProjectRequestConverter {
 
     public ProjectRequest convert(com.issuetracker.webapp.controller.dto.request.project.ProjectRequest projectRequest){
         return new ProjectRequest.Builder()

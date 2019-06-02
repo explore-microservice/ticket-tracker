@@ -1,10 +1,10 @@
 package com.issuetracker.webapp.service;
 
 import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
-import com.issuetracker.webapp.repository.model.Project;
 import com.issuetracker.webapp.repository.ProjectRepository;
-import com.issuetracker.webapp.service.converter.SProjectRequestConverter;
-import com.issuetracker.webapp.service.converter.SProjectResponseConverter;
+import com.issuetracker.webapp.repository.model.Project;
+import com.issuetracker.webapp.service.converter.ProjectRequestConverter;
+import com.issuetracker.webapp.service.converter.ProjectResponseConverter;
 import com.issuetracker.webapp.service.dto.request.project.ProjectRequest;
 import com.issuetracker.webapp.service.dto.response.project.ProjectResponse;
 import org.slf4j.Logger;
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Optional;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
@@ -20,16 +20,16 @@ public class ProjectServiceImpl implements ProjectService{
     private final Logger LOGGER = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
     private final ProjectRepository projectRepository;
-    private final SProjectResponseConverter sProjectResponseConverter;
-    private final SProjectRequestConverter sProjectRequestConverter;
+    private final ProjectResponseConverter serviceProjectResponseConverter;
+    private final ProjectRequestConverter serviceProjectRequestConverter;
 
     public ProjectServiceImpl(
             final ProjectRepository projectRepository,
-            final SProjectResponseConverter sProjectResponseConverter,
-            final SProjectRequestConverter sProjectRequestConverter) {
+            final ProjectResponseConverter serviceProjectResponseConverter,
+            final ProjectRequestConverter serviceProjectRequestConverter) {
         this.projectRepository = projectRepository;
-        this.sProjectResponseConverter = sProjectResponseConverter;
-        this.sProjectRequestConverter = sProjectRequestConverter;
+        this.serviceProjectResponseConverter = serviceProjectResponseConverter;
+        this.serviceProjectRequestConverter = serviceProjectRequestConverter;
     }
 
     @Override
@@ -37,18 +37,18 @@ public class ProjectServiceImpl implements ProjectService{
         final Optional<Project> optionalProject = projectRepository.findById(id);
         final Project project = optionalProject.orElseThrow(() -> new ProjectNotFoundException("Project with id: " + id + " is not found"));
 
-        final ProjectResponse projectResponse = sProjectResponseConverter.convert(project);
+        final ProjectResponse projectResponse = serviceProjectResponseConverter.convert(project);
         return projectResponse;
     }
 
     @Override
     public ProjectResponse createProject(final ProjectRequest projectRequest) {
-        final Project projectInput = sProjectRequestConverter.convert(projectRequest);
+        final Project projectInput = serviceProjectRequestConverter.convert(projectRequest);
         projectInput.setCreationDate(Instant.now());
 
         final Project projectOutput = projectRepository.save(projectInput);
 
-        final ProjectResponse projectResponse = sProjectResponseConverter.convert(projectOutput);
+        final ProjectResponse projectResponse = serviceProjectResponseConverter.convert(projectOutput);
         return projectResponse;
     }
 
@@ -65,7 +65,7 @@ public class ProjectServiceImpl implements ProjectService{
 
         final Project projectOutput = projectRepository.save(project);
 
-        final ProjectResponse projectResponse = sProjectResponseConverter.convert(projectOutput);
+        final ProjectResponse projectResponse = serviceProjectResponseConverter.convert(projectOutput);
         return projectResponse;
     }
 
