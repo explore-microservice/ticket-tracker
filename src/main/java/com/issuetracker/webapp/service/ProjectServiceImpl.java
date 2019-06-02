@@ -5,6 +5,7 @@ import com.issuetracker.webapp.repository.ProjectRepository;
 import com.issuetracker.webapp.repository.model.Project;
 import com.issuetracker.webapp.service.converter.ProjectRequestConverter;
 import com.issuetracker.webapp.service.converter.ProjectResponseConverter;
+import com.issuetracker.webapp.service.converter.ServiceDTOConverter;
 import com.issuetracker.webapp.service.dto.request.project.ProjectRequest;
 import com.issuetracker.webapp.service.dto.response.project.ProjectResponse;
 import org.slf4j.Logger;
@@ -20,8 +21,8 @@ public class ProjectServiceImpl implements ProjectService{
     private final Logger LOGGER = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
     private final ProjectRepository projectRepository;
-    private final ProjectResponseConverter serviceProjectResponseConverter;
-    private final ProjectRequestConverter serviceProjectRequestConverter;
+    private final ServiceDTOConverter<Project, ProjectResponse> serviceProjectResponseConverter;
+    private final ServiceDTOConverter<ProjectRequest, Project> serviceProjectRequestConverter;
 
     public ProjectServiceImpl(
             final ProjectRepository projectRepository,

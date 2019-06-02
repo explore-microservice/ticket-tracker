@@ -1,5 +1,6 @@
 package com.issuetracker.webapp.controller;
 
+import com.issuetracker.webapp.controller.converter.ControllerDTOConverter;
 import com.issuetracker.webapp.controller.converter.ProjectRequestConverter;
 import com.issuetracker.webapp.controller.converter.ProjectResponseConverter;
 import com.issuetracker.webapp.controller.dto.request.project.ProjectRequest;
@@ -9,21 +10,17 @@ import com.issuetracker.webapp.exceptions.dto.response.StatusResponse;
 import com.issuetracker.webapp.service.ProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
-
 @RestController
-@Api(description = "Project related CRUD operations and informations.")
+@Api(description = "Project related CRUD operations and information.")
 public class ProjectController {
 
     private final ProjectService projectService;
-    private final ProjectResponseConverter controllerProjectResponseConverter;
-    private final ProjectRequestConverter controllerProjectRequestConverter;
+    private final ControllerDTOConverter<com.issuetracker.webapp.service.dto.response.project.ProjectResponse, ProjectResponse> controllerProjectResponseConverter;
+    private final ControllerDTOConverter<ProjectRequest, com.issuetracker.webapp.service.dto.request.project.ProjectRequest> controllerProjectRequestConverter;
 
     public ProjectController(final ProjectService projectService,
                              final ProjectResponseConverter controllerProjectResponseConverter,

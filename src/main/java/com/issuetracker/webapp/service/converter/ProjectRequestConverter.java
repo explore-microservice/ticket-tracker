@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("serviceProjectRequestConverter")
-public class ProjectRequestConverter {
+public class ProjectRequestConverter implements ServiceDTOConverter<ProjectRequest, Project>{
 
     public Project convert(final ProjectRequest projectRequest){
         return new Project.Builder()

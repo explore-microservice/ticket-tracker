@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 
 @Component("controllerProjectRequestConverter")
-public class ProjectRequestConverter {
+public class ProjectRequestConverter implements ControllerDTOConverter<com.issuetracker.webapp.controller.dto.request.project.ProjectRequest, ProjectRequest> {
 
     public ProjectRequest convert(com.issuetracker.webapp.controller.dto.request.project.ProjectRequest projectRequest){
         return new ProjectRequest.Builder()

@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Component("serviceProjectResponseConverter")
-public class ProjectResponseConverter {
+public class ProjectResponseConverter implements ServiceDTOConverter<Project, ProjectResponse>{
 
     private Map<Status, List<Ticket>> ticketConverter(final Set<com.issuetracker.webapp.repository.model.Ticket> tickets){
         return tickets.stream().map(ticket -> new com.issuetracker.webapp.service.dto.response.project.Ticket.Builder()
