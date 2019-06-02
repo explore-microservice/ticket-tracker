@@ -13,11 +13,11 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "creationdate")
+    @Column(name = "creationdate", nullable = false)
     private Instant creationDate;
     @Column(name = "startdate")
     private Instant startDate;
@@ -32,6 +32,7 @@ public class Project {
     }
 
     private Project(Builder builder) {
+        id = builder.id;
         name = builder.name;
         description = builder.description;
         creationDate = builder.creationDate;
@@ -129,6 +130,7 @@ public class Project {
     }
 
     public static final class Builder {
+        private Long id;
         private String name;
         private String description;
         private Instant creationDate;
@@ -138,6 +140,11 @@ public class Project {
         private Set<Works> usersWorkingOnIt;
 
         public Builder() {
+        }
+
+        public Builder withId(Long val) {
+            id = val;
+            return this;
         }
 
         public Builder withName(String val) {
