@@ -33,7 +33,7 @@ public class ProjectController {
     @ApiOperation(value = "Get details about a particular project", response = ProjectResponse.class)
     @GetMapping(value = "/projects/{id}", produces = "application/json")
     public ProjectResponse projectPage(final @PathVariable Long id) throws ProjectNotFoundException {
-        final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse = projectService.provideProjectPage(id);
+        final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse = projectService.getProject(id);
         return controllerProjectResponseConverter.convert(projectResponse);
     }
 

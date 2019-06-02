@@ -6,7 +6,7 @@ import com.issuetracker.webapp.service.dto.response.project.ProjectResponse;
 
 public interface ProjectService {
 
-    ProjectResponse provideProjectPage(final Long id) throws ProjectNotFoundException;
+    ProjectResponse getProject(final Long id) throws ProjectNotFoundException;
     ProjectResponse createProject(final ProjectRequest projectRequest);
     ProjectResponse updateProject(final Long id, final ProjectRequest projectRequest) throws ProjectNotFoundException;
 
