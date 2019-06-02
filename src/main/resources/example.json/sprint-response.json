@@ -1,0 +1,44 @@
+{
+  "name": "sprint name",
+  "description": "spring description",
+  "creationDate": "2019-06-02T13:41:47.509Z",
+  "startDate": "2019-06-02T13:41:47.509Z",
+  "endDate": "2019-06-02T13:41:47.509Z",
+  "projectName": "project name",
+  "tickets": [
+    {
+      "todo": [
+        {
+          "name": "todo ticket",
+          "description": "todo ticket description",
+          "type": "todo ticket type",
+          "assignee": "assignee name"
+        }
+      ],
+      "inProgress": [
+        {
+          "name": "in progress ticket",
+          "description": "in progress ticket description",
+          "type": "in progress ticket type",
+          "assignee": "assignee name"
+        }
+      ],
+      "blocked": [
+        {
+          "name": "blocked ticket",
+          "description": "blocked ticket description",
+          "type": "blocked ticket type",
+          "assignee": "assignee name"
+        }
+      ],
+      "done": [
+        {
+          "name": "done ticket",
+          "description": "done ticket description",
+          "type": "done ticket type",
+          "assignee": "assignee name"
+        }
+      ]
+    }
+  ]
+}

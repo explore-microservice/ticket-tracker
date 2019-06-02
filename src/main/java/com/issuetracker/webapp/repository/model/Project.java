@@ -32,7 +32,6 @@ public class Project {
     }
 
     private Project(Builder builder) {
-        id = builder.id;
         name = builder.name;
         description = builder.description;
         creationDate = builder.creationDate;
@@ -130,7 +129,6 @@ public class Project {
     }
 
     public static final class Builder {
-        private Long id;
         private String name;
         private String description;
         private Instant creationDate;
@@ -140,11 +138,6 @@ public class Project {
         private Set<Works> usersWorkingOnIt;
 
         public Builder() {
-        }
-
-        public Builder withId(Long val) {
-            id = val;
-            return this;
         }
 
         public Builder withName(String val) {

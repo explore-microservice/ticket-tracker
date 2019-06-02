@@ -11,30 +11,38 @@
       "endDate": "2019-05-30T18:25:51.783Z",
       "tickets": [
         {
-          "todo": {
-            "name": "todo ticket",
-            "description": "todo ticket description",
-            "type": "todo ticket type",
-            "assignee": "assignee name"
-          },
-          "inProgress": {
-            "name": "in progress ticket",
-            "description": "in progress ticket description",
-            "type": "in progress ticket type",
-            "assignee": "assignee name"
-          },
-          "blocked": {
-            "name": "blocked ticket",
-            "description": "blocked ticket description",
-            "type": "blocked ticket type",
-            "assignee": "assignee name"
-          },
-          "done": {
-            "name": "done ticket",
-            "description": "done ticket description",
-            "type": "done ticket type",
-            "assignee": "assignee name"
-          }
+          "todo": [
+            {
+              "name": "todo ticket",
+              "description": "todo ticket description",
+              "type": "todo ticket type",
+              "assignee": "assignee name"
+            }
+          ],
+          "inProgress": [
+            {
+              "name": "in progress ticket",
+              "description": "in progress ticket description",
+              "type": "in progress ticket type",
+              "assignee": "assignee name"
+            }
+          ],
+          "blocked": [
+            {
+              "name": "blocked ticket",
+              "description": "blocked ticket description",
+              "type": "blocked ticket type",
+              "assignee": "assignee name"
+            }
+          ],
+          "done": [
+            {
+              "name": "done ticket",
+              "description": "done ticket description",
+              "type": "done ticket type",
+              "assignee": "assignee name"
+            }
+          ]
         }
       ]
     }

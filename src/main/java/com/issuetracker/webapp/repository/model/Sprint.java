@@ -32,7 +32,6 @@ public class Sprint {
     }
 
     private Sprint(Builder builder) {
-        id = builder.id;
         name = builder.name;
         description = builder.description;
         creationDate = builder.creationDate;
@@ -74,6 +73,34 @@ public class Sprint {
         return tickets;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setStartDate(Instant startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Instant endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,7 +129,6 @@ public class Sprint {
     }
 
     public static final class Builder {
-        private Long id;
         private String name;
         private String description;
         private Instant creationDate;
@@ -112,11 +138,6 @@ public class Sprint {
         private Set<Ticket> tickets;
 
         public Builder() {
-        }
-
-        public Builder withId(Long val) {
-            id = val;
-            return this;
         }
 
         public Builder withName(String val) {
