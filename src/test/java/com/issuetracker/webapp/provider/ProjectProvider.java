@@ -14,8 +14,12 @@ public class ProjectProvider {
     public static Instant startDate = Instant.MIN;
     public static Instant endDate = Instant.MAX;
 
-    public static Project emptyRepositoryProject(){
-        return new Project.Builder().withName("something").withCreationDate(Instant.now()).build();
+    public static Project aRepositoryProjectWithName(){
+        return new Project.Builder().withName(name).build();
+    }
+
+    public static Project aRepositoryProjectWithCreationDate(){
+        return new Project.Builder().withCreationDate(Instant.now()).build();
     }
 
     public static ProjectResponse emptyServiceProjectResponse(){

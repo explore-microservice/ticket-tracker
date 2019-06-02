@@ -1,46 +1,36 @@
 package com.issuetracker.webapp.repository;
 
-import com.issuetracker.webapp.provider.ProjectProvider;
-import com.issuetracker.webapp.repository.model.Project;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
-import javax.persistence.MapKeyColumn;
+import javax.persistence.PersistenceException;
 
-import java.util.Optional;
-
-import static com.issuetracker.webapp.provider.ProjectProvider.emptyRepositoryProject;
-import static org.junit.Assert.*;
+import static com.issuetracker.webapp.provider.ProjectProvider.aRepositoryProjectWithCreationDate;
+import static com.issuetracker.webapp.provider.ProjectProvider.aRepositoryProjectWithName;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class ProjectRepositoryTest {
 
-    @Autowired
+    @Inject
     private ProjectRepository projectRepository;
 
-    @Autowired
+    @Inject
     private TestEntityManager entityManager;
 
-//    @Before
-//    public void setUp(){
-//        MockitoAnnotations.initMocks(this);
-//    }
+    @Test(expected = DataIntegrityViolationException.class)
+    public void givenProjectWithoutName_whenPersistAndFlushToTheDB_thenDataIntegrityViolationExceptionIsThrown(){
+        projectRepository.saveAndFlush(aRepositoryProjectWithCreationDate());
+    }
 
-    @Test
-    public void test(){
-        entityManager.persist(emptyRepositoryProject());
-        entityManager.flush();
-
-        Optional<Project> project = projectRepository.findById(ProjectProvider.id);
+    @Test(expected = DataIntegrityViolationException.class)
+    public void givenProjectWithoutCreationDate_whenPersistAndFlushToTheDB_thenDataIntegrityViolationExceptionIsThrown(){
+        projectRepository.saveAndFlush(aRepositoryProjectWithName());
     }
 
 }
