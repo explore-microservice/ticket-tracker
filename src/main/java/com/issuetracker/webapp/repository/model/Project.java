@@ -1,5 +1,7 @@
 package com.issuetracker.webapp.repository.model;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.Instant;
@@ -142,6 +144,7 @@ public class Project {
         public Builder() {
         }
 
+        @VisibleForTesting
         public Builder withId(Long val) {
             id = val;
             return this;

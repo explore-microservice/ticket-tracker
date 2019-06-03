@@ -1,5 +1,7 @@
 package com.issuetracker.webapp.repository.model;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.Instant;
@@ -32,6 +34,7 @@ public class Sprint {
     }
 
     private Sprint(Builder builder) {
+        id = builder.id;
         name = builder.name;
         description = builder.description;
         creationDate = builder.creationDate;
@@ -129,6 +132,7 @@ public class Sprint {
     }
 
     public static final class Builder {
+        private Long id;
         private String name;
         private String description;
         private Instant creationDate;
@@ -138,6 +142,12 @@ public class Sprint {
         private Set<Ticket> tickets;
 
         public Builder() {
+        }
+
+        @VisibleForTesting
+        public Builder withId(Long val) {
+            id = val;
+            return this;
         }
 
         public Builder withName(String val) {
