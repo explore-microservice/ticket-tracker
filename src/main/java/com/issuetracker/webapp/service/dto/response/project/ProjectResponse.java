@@ -2,6 +2,7 @@ package com.issuetracker.webapp.service.dto.response.project;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 
 public class ProjectResponse {
 
@@ -43,6 +44,24 @@ public class ProjectResponse {
 
     public List<Sprint> getSprints() {
         return sprints;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProjectResponse that = (ProjectResponse) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(creationDate, that.creationDate) &&
+                Objects.equals(startDate, that.startDate) &&
+                Objects.equals(endDate, that.endDate) &&
+                Objects.equals(sprints, that.sprints);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, creationDate, startDate, endDate, sprints);
     }
 
     public static final class Builder {

@@ -3,6 +3,7 @@ package com.issuetracker.webapp.controller.dto.response.project;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Sprint {
 
@@ -30,6 +31,23 @@ public class Sprint {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sprint sprint = (Sprint) o;
+        return Objects.equals(name, sprint.name) &&
+                Objects.equals(description, sprint.description) &&
+                Objects.equals(startDate, sprint.startDate) &&
+                Objects.equals(endDate, sprint.endDate) &&
+                Objects.equals(tickets, sprint.tickets);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, startDate, endDate, tickets);
     }
 
     private Sprint(Builder builder) {

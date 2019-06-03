@@ -1,5 +1,7 @@
 package com.issuetracker.webapp.service.dto.response.project;
 
+import java.util.Objects;
+
 public class Ticket {
 
     private final String name;
@@ -26,6 +28,23 @@ public class Ticket {
 
     public Status getStatus() {
         return status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return Objects.equals(name, ticket.name) &&
+                Objects.equals(description, ticket.description) &&
+                type == ticket.type &&
+                status == ticket.status &&
+                Objects.equals(assignee, ticket.assignee);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, type, status, assignee);
     }
 
     private Ticket(Builder builder) {

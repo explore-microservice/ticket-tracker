@@ -1,6 +1,7 @@
 package com.issuetracker.webapp.service.dto.request.sprint;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public class SprintRequest {
 
@@ -42,6 +43,24 @@ public class SprintRequest {
 
     public Long getProjectId() {
         return projectId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SprintRequest that = (SprintRequest) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(creationDate, that.creationDate) &&
+                Objects.equals(startDate, that.startDate) &&
+                Objects.equals(endDate, that.endDate) &&
+                Objects.equals(projectId, that.projectId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, creationDate, startDate, endDate, projectId);
     }
 
     public static final class Builder {

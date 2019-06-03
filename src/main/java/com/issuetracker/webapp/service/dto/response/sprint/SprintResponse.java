@@ -1,6 +1,7 @@
 package com.issuetracker.webapp.service.dto.response.sprint;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public class SprintResponse {
 
@@ -44,6 +45,23 @@ public class SprintResponse {
         return projectName;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SprintResponse that = (SprintResponse) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(creationDate, that.creationDate) &&
+                Objects.equals(startDate, that.startDate) &&
+                Objects.equals(endDate, that.endDate) &&
+                Objects.equals(projectName, that.projectName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, creationDate, startDate, endDate, projectName);
+    }
 
     public static final class Builder {
         private String name;
