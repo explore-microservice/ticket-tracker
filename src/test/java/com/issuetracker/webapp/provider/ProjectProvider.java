@@ -1,4 +1,4 @@
-package com.issuetracker.webapp.provider.service.project;
+package com.issuetracker.webapp.provider;
 
 import com.issuetracker.webapp.provider.SprintProvider;
 import com.issuetracker.webapp.repository.model.Project;

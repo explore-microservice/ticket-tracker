@@ -8,7 +8,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
-import javax.persistence.PersistenceException;
 
 import static com.issuetracker.webapp.provider.ProjectProvider.aRepositoryProjectWithCreationDate;
 import static com.issuetracker.webapp.provider.ProjectProvider.aRepositoryProjectWithName;
@@ -32,5 +31,4 @@ public class ProjectRepositoryTest {
     public void givenProjectWithoutCreationDate_whenPersistAndFlushToTheDB_thenDataIntegrityViolationExceptionIsThrown(){
         projectRepository.saveAndFlush(aRepositoryProjectWithName());
     }
-
 }

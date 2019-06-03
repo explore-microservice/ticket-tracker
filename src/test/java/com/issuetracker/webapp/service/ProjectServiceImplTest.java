@@ -15,7 +15,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
-import static com.issuetracker.webapp.provider.ProjectProvider.aRepositoryProjectWithCreationDate;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -26,6 +25,8 @@ public class ProjectServiceImplTest {
     @Mock private ProjectRequestConverter serviceProjectRequestConverter;
     private ProjectServiceImpl projectService;
 
+    private static Long projectId = 1L;
+
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
@@ -35,13 +36,32 @@ public class ProjectServiceImplTest {
     }
 
     @Test
-    public void givenProjectWithoutAttributes_whenGet() throws ProjectNotFoundException {
-        Project anEmptyProject = aRepositoryProjectWithCreationDate();
-        ProjectResponse projectResponse = ProjectProvider.emptyServiceProjectResponse();
+    public void givenProjectIdAndProjectInDbWithoutSprints_whenGetterAProject_thenReturnProjectResponse() throws ProjectNotFoundException {
+        Project aProjectWithoutSprints = ProjectProvider.aRepositoryProject();
+        ProjectResponse projectResponse = ProjectProvider.aServiceProjectResponseWithoutSprints();
 
-        Mockito.when(projectRepository.findById(1L)).thenReturn(Optional.of(anEmptyProject));
-        Mockito.when(serviceProjectResponseConverter.convert(anEmptyProject)).thenReturn(projectResponse);
+        Mockito.when(projectRepository.findById(projectId)).thenReturn(Optional.of(aProjectWithoutSprints));
+        Mockito.when(serviceProjectResponseConverter.convert(aProjectWithoutSprints)).thenReturn(projectResponse);
 
-        assertThat(projectResponse, equalTo(projectService.getProject(1L)));
+        assertThat(projectResponse, equalTo(projectService.getProject(projectId)));
     }
+
+    @Test
+    public void givenProjectIdAndProjectInDbWithSprints_whenGetterAProject_thenReturnProjectResponse() throws ProjectNotFoundException {
+        Project projectWithSprints = ProjectProvider.aRepositoryProjectWithSprints();
+        ProjectResponse projectResponse = ProjectProvider.aServiceProjectResponseWithSprints();
+
+        Mockito.when(projectRepository.findById(projectId)).thenReturn(Optional.of(projectWithSprints));
+        Mockito.when(serviceProjectResponseConverter.convert(projectWithSprints)).thenReturn(projectResponse);
+
+        assertThat(projectResponse, equalTo(projectService.getProject(projectId)));
+    }
+
+    @Test(expected = ProjectNotFoundException.class)
+    public void givenProjectId_whenGetANonExistingProject_thenProjectNotFoundExceptionShouldBeThrown() throws ProjectNotFoundException {
+        Mockito.when(projectRepository.findById(projectId)).thenThrow(ProjectNotFoundException.class);
+
+        projectService.getProject(projectId);
+    }
+
 }
