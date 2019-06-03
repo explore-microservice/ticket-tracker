@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Component("controllerProjectResponseConverter")
 public class ProjectResponseConverter implements ControllerDTOConverter<com.issuetracker.webapp.service.dto.response.project.ProjectResponse, ProjectResponse>{
 
-    public ProjectResponse convert(com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse){
+    public ProjectResponse convert(final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse){
         return new ProjectResponse.Builder()
                 .withName(projectResponse.getName())
                 .withDescription(projectResponse.getDescription())
