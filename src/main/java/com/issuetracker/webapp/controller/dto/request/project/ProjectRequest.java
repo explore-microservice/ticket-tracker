@@ -1,12 +1,15 @@
 package com.issuetracker.webapp.controller.dto.request.project;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.issuetracker.webapp.controller.validation.ProjectRequestValid;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ExampleProperty;
 
+import javax.validation.Constraint;
 import java.time.Instant;
 import java.util.Objects;
 
+@ProjectRequestValid
 @JsonDeserialize(builder = ProjectRequest.Builder.class)
 public class ProjectRequest {
 

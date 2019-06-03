@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @Api(description = "Project related CRUD operations and information.")
 public class ProjectController {
@@ -38,7 +40,7 @@ public class ProjectController {
     }
 
     @PostMapping(value = "/projects", produces = "application/json")
-    public ResponseEntity<ProjectResponse> createProject(@RequestBody final ProjectRequest payload){
+    public ResponseEntity<ProjectResponse> createProject(@Valid @RequestBody final ProjectRequest payload){
         final com.issuetracker.webapp.service.dto.request.project.ProjectRequest projectRequest = controllerProjectRequestConverter.convert(payload);
 
         final com.issuetracker.webapp.service.dto.response.project.ProjectResponse projectResponse =  projectService.createProject(projectRequest);
