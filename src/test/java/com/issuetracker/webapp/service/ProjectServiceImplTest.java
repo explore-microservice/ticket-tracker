@@ -36,7 +36,7 @@ public class ProjectServiceImplTest {
     }
 
     @Test
-    public void givenProjectIdAndProjectInDbWithoutSprints_whenGetterAProject_thenReturnProjectResponse() throws ProjectNotFoundException {
+    public void givenProjectIdAndProjectInDbWithoutSprints_whenGetterAProject_thenReturnProjectResponse() {
         Project aProjectWithoutSprints = ProjectProvider.aRepositoryProject();
         ProjectResponse projectResponse = ProjectProvider.aServiceProjectResponseWithoutSprints();
 
@@ -47,7 +47,7 @@ public class ProjectServiceImplTest {
     }
 
     @Test
-    public void givenProjectIdAndProjectInDbWithSprints_whenGetterAProject_thenReturnProjectResponse() throws ProjectNotFoundException {
+    public void givenProjectIdAndProjectInDbWithSprints_whenGetterAProject_thenReturnProjectResponse() {
         Project projectWithSprints = ProjectProvider.aRepositoryProjectWithSprints();
         ProjectResponse projectResponse = ProjectProvider.aServiceProjectResponseWithSprints();
 
@@ -58,7 +58,7 @@ public class ProjectServiceImplTest {
     }
 
     @Test(expected = ProjectNotFoundException.class)
-    public void givenProjectId_whenGetANonExistingProject_thenProjectNotFoundExceptionShouldBeThrown() throws ProjectNotFoundException {
+    public void givenProjectId_whenGetANonExistingProject_thenProjectNotFoundExceptionShouldBeThrown() {
         Mockito.when(projectRepository.findById(projectId)).thenThrow(ProjectNotFoundException.class);
 
         projectService.getProject(projectId);

@@ -11,5 +11,5 @@ public interface UserService {
     User getUserByEmail(String email);
     User getUserById(Long id);
     List<User> searchForUsers(String email, String username, String firstName, String lastName);
-    List<User> getAllUsersOnAProject(Long projectId) throws ProjectNotFoundException;
+    List<User> getAllUsersOnAProject(Long projectId);
 }

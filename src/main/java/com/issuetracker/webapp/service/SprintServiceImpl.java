@@ -33,7 +33,7 @@ public class SprintServiceImpl implements SprintService {
     }
 
     @Override
-    public SprintResponse createSprint(SprintRequest sprintRequest) throws ProjectNotFoundException{
+    public SprintResponse createSprint(SprintRequest sprintRequest) {
         final Long projectId = sprintRequest.getProjectId();
         final Optional<Project> project = projectRepository.findById(projectId);
 

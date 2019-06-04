@@ -6,5 +6,5 @@ import com.issuetracker.webapp.service.dto.response.sprint.SprintResponse;
 
 public interface SprintService {
 
-    SprintResponse createSprint(SprintRequest sprintRequest) throws ProjectNotFoundException;
+    SprintResponse createSprint(SprintRequest sprintRequest);
 }

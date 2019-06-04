@@ -29,7 +29,7 @@ public class SprintController {
     }
 
     @PostMapping(path = "/sprints")
-    public ResponseEntity<SprintResponse> createSpring(@RequestBody final SprintRequest payload) throws ProjectNotFoundException {
+    public ResponseEntity<SprintResponse> createSpring(@RequestBody final SprintRequest payload) {
         final com.issuetracker.webapp.service.dto.request.sprint.SprintRequest sprintRequest = controllerSprintRequestConverter.convert(payload);
 
         final com.issuetracker.webapp.service.dto.response.sprint.SprintResponse sprintResponse = sprintService.createSprint(sprintRequest);
