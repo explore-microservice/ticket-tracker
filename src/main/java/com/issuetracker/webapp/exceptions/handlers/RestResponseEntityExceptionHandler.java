@@ -1,8 +1,9 @@
 package com.issuetracker.webapp.exceptions.handlers;
 
+import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
 import com.issuetracker.webapp.exceptions.TicketStatusCannotBeEmptyException;
 import com.issuetracker.webapp.exceptions.dto.response.StatusResponse;
-import com.issuetracker.webapp.exceptions.ProjectNotFoundException;
+import io.swagger.models.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -22,27 +22,35 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        StatusResponse statusResponse = new StatusResponse(status);
-        statusResponse.addValidationErrors(ex.getBindingResult().getFieldErrors());
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
 
-//        return handleExceptionInternal(ex, new StatusResponse("Validation error", status), headers, status, request);
-        return new ResponseEntity<>(statusResponse, status);
+        logger.error(ex.getMessage(), ex);
+
+        StatusResponse statusResponse = new StatusResponse(HttpStatus.BAD_REQUEST);
+        statusResponse.addFieldErrors(ex.getBindingResult().getFieldErrors());
+        statusResponse.addGlobalErrors(ex.getBindingResult().getGlobalErrors());
+
+        return new ResponseEntity<>(statusResponse, HttpStatus.BAD_REQUEST);
     }
 
 
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    @ExceptionHandler(ProjectNotFoundException.class)
-//    public ResponseEntity<StatusResponse> handleProjectNotFoundException(Exception ex){
-//        logger.error(ex.getMessage(), ex);
-//        return new ResponseEntity<>(
-//                new StatusResponse("Project not found", HttpStatus.NOT_FOUND), new HttpHeaders(), HttpStatus.NOT_FOUND);
-//    }
-//
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    @ExceptionHandler(TicketStatusCannotBeEmptyException.class)
-//    public StatusResponse handleTicketStatusCannotBeEmptyException(Exception ex){
-//        logger.error(ex.getMessage(), ex);
-//        return new StatusResponse("Status field of ticket cannot be empty", HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @ExceptionHandler(ProjectNotFoundException.class)
+    public ResponseEntity<StatusResponse> handleProjectNotFoundException(Exception ex){
+        logger.error(ex.getMessage(), ex);
+
+        return new ResponseEntity<>(
+                new StatusResponse(HttpStatus.NOT_FOUND, "Project not found", ex), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TicketStatusCannotBeEmptyException.class)
+    public ResponseEntity<StatusResponse> handleTicketStatusCannotBeEmptyException(Exception ex){
+        logger.error(ex.getMessage(), ex);
+        return new ResponseEntity<>(
+                new StatusResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Status field of ticket cannot be empty", ex),
+                HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
