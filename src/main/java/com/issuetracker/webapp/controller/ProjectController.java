@@ -55,9 +55,9 @@ public class ProjectController {
         return controllerProjectResponseConverter.convert(projectResponse);
     }
 
-    @DeleteMapping(value = "/projects/{id}", produces = "application/json")
-    public StatusResponse deleteProject(final @PathVariable Long id) {
-        projectService.deleteProject(id);
-        return new StatusResponse("The project has been successfully deleted", HttpStatus.OK);
-    }
+//    @DeleteMapping(value = "/projects/{id}", produces = "application/json")
+//    public StatusResponse deleteProject(final @PathVariable Long id) {
+//        projectService.deleteProject(id);
+//        return new StatusResponse("The project has been successfully deleted", HttpStatus.OK);
+//    }
 }
